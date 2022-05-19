@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import Step
 
-class CommentSerializer(serializers.ModelSerializer):
+class StepSerializer(serializers.ModelSerializer):
     class Meta:
         model = Step,
         fields = ['id', 'name', 'description', 'length']
