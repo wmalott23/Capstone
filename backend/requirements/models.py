@@ -1,5 +1,5 @@
 from django.db import models
-from ..steps.models import Step
+from steps.models import Step
 
 # Create your models here.
 

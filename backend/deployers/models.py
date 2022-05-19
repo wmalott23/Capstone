@@ -1,6 +1,6 @@
 from django.db import models
 from authentication.models import User
-from ..cbts.models import Cbt
+from cbts.models import Cbt
 
 
 # Create your models here.

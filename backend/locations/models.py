@@ -1,5 +1,5 @@
 from django.db import models
-from ..deployments.models import Deployment
+from deployments.models import Deployment
 
 # Create your models here.
 

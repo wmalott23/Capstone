@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'corsheaders',
     'cars.apps.CarsConfig',  # This app is for example use only
     'deployment_programs',
-    'deployment_coordinators',
     'deployments',
     'requirements_lists',
     'steps',

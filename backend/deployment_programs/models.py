@@ -1,5 +1,5 @@
 from django.db import models
-from ..locations.models import Location
+from locations.models import Location
 
 # Create your models here.
 

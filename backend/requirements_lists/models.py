@@ -1,5 +1,5 @@
 from django.db import models
-from ..requirements.models import Requirement
+from requirements.models import Requirement
 
 # Create your models here.
 

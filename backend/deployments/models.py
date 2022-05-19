@@ -1,6 +1,6 @@
 from django.db import models
-from ..deployers.models import Deployer
-from ..requirements_lists.models import RequirementList
+from deployers.models import Deployer
+from requirements_lists.models import RequirementList
 
 # Create your models here.
 

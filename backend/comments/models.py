@@ -1,6 +1,6 @@
 from django.db import models
 from authentication.models import User
-from ..steps.models import Step
+from steps.models import Step
 
 # Create your models here.
 
