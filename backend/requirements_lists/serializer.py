@@ -3,6 +3,6 @@ from .models import RequirementList
 
 class RequirementListSerializer(serializers.ModelSerializer):
     class Meta:
-        model = RequirementList,
+        model = RequirementList
         fields = ['id', 'name', 'requirement_id']
         depth = 1

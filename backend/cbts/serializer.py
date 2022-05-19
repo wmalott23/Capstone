@@ -3,5 +3,5 @@ from .models import Cbt
 
 class CbtSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Cbt,
+        model = Cbt
         fields = ['id', 'name', 'exp']

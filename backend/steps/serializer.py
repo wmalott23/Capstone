@@ -3,6 +3,6 @@ from .models import Step
 
 class StepSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Step,
+        model = Step
         fields = ['id', 'name', 'description', 'length']
         depth = 1

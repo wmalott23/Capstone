@@ -3,6 +3,6 @@ from .models import DeploymentProgram
 
 class DeploymentProgramSerializer(serializers.ModelSerializer):
     class Meta:
-        model = DeploymentProgram,
+        model = DeploymentProgram
         fields = ['id', 'program', 'location_id']
         depth = 1
