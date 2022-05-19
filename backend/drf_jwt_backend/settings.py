@@ -50,12 +50,7 @@ INSTALLED_APPS = [
     'requirements',
     'deployers',
     'comments',
-    'passports',
-    'visas',
     'cbts',
-    'loas',
-    'medicals',
-    'dentals',
 ]
 
 MIDDLEWARE = [
