@@ -1,9 +1,8 @@
-from re import L
 from rest_framework import serializers
-from .models import Location
+from .models import Step
 
 class CommentSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Location,
-        fields = ['id', 'name', 'deployment_id']
+        model = Step,
+        fields = ['id', 'name', 'description', 'length']
         depth = 1

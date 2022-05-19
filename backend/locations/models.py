@@ -5,4 +5,4 @@ from deployments.models import Deployment
 
 class Location(models.Model):
     name = models.CharField(max_length=30)
-    deploymentId = models.ForeignKey(Deployment, on_delete=models.CASCADE)
+    deployment_id = models.ForeignKey(Deployment, on_delete=models.CASCADE)
