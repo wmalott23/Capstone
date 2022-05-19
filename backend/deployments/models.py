@@ -6,7 +6,7 @@ from requirements_lists.models import RequirementList
 
 class Deployment(models.Model):
     name = models.CharField(max_length=30)
-    start_date = models.IntegerField()
-    end_date = models.IntegerField()
+    start_date = models.DateField()
+    end_date = models.DateField()
     deployer_id = models.ForeignKey(Deployer, on_delete=models.CASCADE)
     requirement_list_id = models.ForeignKey(RequirementList, on_delete=models.CASCADE)

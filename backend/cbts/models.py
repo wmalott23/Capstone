@@ -4,4 +4,4 @@ from django.db import models
 
 class Cbt(models.Model):
     name = models.CharField(max_length=50)
-    exp = models.IntegerField()
+    exp = models.DateField()
