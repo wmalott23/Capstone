@@ -10,6 +10,8 @@ const DpcRegisterPage = () => {
     password: "",
     firstName: "",
     lastName: "",
+    is_dep: false,
+    is_dpc: true
   };
   const [formData, handleInputChange, handleSubmit] = useCustomForm(
     defaultValues,

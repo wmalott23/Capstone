@@ -5,6 +5,7 @@ import "./App.css";
 // Pages Imports
 import DepHomePage from "./pages/DepHomePage/DepHomePage";
 import DpcHomePage from "./pages/DpcHomePage/DpcHomePage";
+import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import DepRegisterPage from "./pages/DepRegisterPage/DepRegisterPage";
@@ -25,9 +26,10 @@ function App() {
       <Routes>
         <Route path="/"element={<PrivateRoute><DepHomePage /></PrivateRoute>}/>
         <Route path="/"element={<PrivateRoute><DpcHomePage /></PrivateRoute>}/>
+        <Route path="/"element={<PrivateRoute><HomePage /></PrivateRoute>}/>
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/dpc/register" element={<DpcRegisterPage />} />
-        <Route path="/dep/register" element={<DepRegisterPage />} />
+        <Route path="/dpc/register" element={<PrivateRoute><DpcRegisterPage /></PrivateRoute>} />
+        <Route path="/dep/register" element={<PrivateRoute><DepRegisterPage /></PrivateRoute>} />
         <Route path="/login" element={<LoginPage />} />
       </Routes>
       <Footer />
