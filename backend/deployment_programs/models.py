@@ -6,4 +6,4 @@ from locations.models import Location
 
 class DeploymentProgram(models.Model):
     program = models.CharField(max_length=30)
-    location_id = models.ForeignKey(Location, on_delete=models.CASCADE)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE)

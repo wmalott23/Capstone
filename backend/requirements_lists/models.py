@@ -5,4 +5,4 @@ from requirements.models import Requirement
 
 class RequirementList(models.Model):
     name = models.CharField(max_length=30)
-    requirement_id = models.ForeignKey(Requirement, on_delete=models.CASCADE)
+    requirement = models.ForeignKey(Requirement, on_delete=models.CASCADE)

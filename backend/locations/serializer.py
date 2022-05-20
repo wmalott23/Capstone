@@ -5,5 +5,6 @@ from .models import Location
 class LocationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Location
-        fields = ['id', 'name', 'deployment_id']
+        fields = ['id', 'name', 'deployment', 'deployment_id']
         depth = 1
+    deployment_id = serializers.IntegerField(write_only=True)
