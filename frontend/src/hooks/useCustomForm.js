@@ -20,7 +20,7 @@ const useCustomForm = (initialValues = {}, onSubmit) => {
   const reset = () => {
     setFormValues(initialValues);
   };
-
+  console.log(formData)
   return [formData, handleInputChange, handleSubmit, reset];
 };
 

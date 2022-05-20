@@ -10,8 +10,8 @@ const DpcRegisterPage = () => {
     password: "",
     firstName: "",
     lastName: "",
-    is_dep: false,
-    is_dpc: true
+    isDeployer: false,
+    isDpc: true
   };
   const [formData, handleInputChange, handleSubmit] = useCustomForm(
     defaultValues,
@@ -20,6 +20,7 @@ const DpcRegisterPage = () => {
 
   return (
     <div className="container">
+      <h1>Register a DPC!</h1>
       <form className="form" onSubmit={handleSubmit}>
         <label>
           Username:{" "}

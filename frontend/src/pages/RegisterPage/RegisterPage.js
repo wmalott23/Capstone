@@ -10,8 +10,8 @@ const RegisterPage = () => {
     password: "",
     firstName: "",
     lastName: "",
-    isDeployer: true,
-    isDpc: true
+    isDeployer: false,
+    isDpc: false
   };
   const [formData, handleInputChange, handleSubmit] = useCustomForm(
     defaultValues,

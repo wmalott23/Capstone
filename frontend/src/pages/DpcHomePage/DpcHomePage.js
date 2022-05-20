@@ -28,7 +28,7 @@ const DpcHomePage = () => {
   }, [token]);
   return (
     <div className="container">
-      <h1>Home Page for {user.username}!</h1>
+      <h1>Dpc Page for {user.username}!</h1>
       {cars &&
         cars.map((car) => (
           <p key={car.id}>

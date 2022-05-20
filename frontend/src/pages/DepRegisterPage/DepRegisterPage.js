@@ -10,8 +10,8 @@ const DepRegisterPage = () => {
     password: "",
     firstName: "",
     lastName: "",
-    is_dep: true,
-    is_dpc: false
+    isDeployer: true,
+    isDpc: false
   };
   const [formData, handleInputChange, handleSubmit] = useCustomForm(
     defaultValues,
@@ -20,6 +20,7 @@ const DepRegisterPage = () => {
 
   return (
     <div className="container">
+      <h1>Register a Deployer!</h1>
       <form className="form" onSubmit={handleSubmit}>
         <label>
           Username:{" "}
