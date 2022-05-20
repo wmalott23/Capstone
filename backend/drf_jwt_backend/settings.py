@@ -131,8 +131,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework_simplejwt.authentication.JWTAuthentication',),
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAdminUser')
+    'COERCE_DECIMAL_TO_STRING': False
 }
 
 SIMPLE_JWT = {
@@ -162,7 +161,6 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=20),
 }
 
-REST_FRAMEWORK={'COERCE_DECIMAL_TO_STRING': False}
 
 try:
     from drf_jwt_backend.local_settings import *

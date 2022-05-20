@@ -5,6 +5,6 @@ from steps.models import Step
 # Create your models here.
 
 class Comment(models.Model):
-    step_id = models.ForeignKey(Step, on_delete=models.CASCADE)
+    step = models.ForeignKey(Step, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     comment_message = models.CharField(max_length=255)

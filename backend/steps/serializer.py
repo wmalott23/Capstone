@@ -5,4 +5,3 @@ class StepSerializer(serializers.ModelSerializer):
     class Meta:
         model = Step
         fields = ['id', 'name', 'description', 'length']
-        depth = 1
