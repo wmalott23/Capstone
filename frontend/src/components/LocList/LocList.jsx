@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
 
-const LocList = (props) => {
+const LocList = ({data}) => {
+
+
     return ( 
-        null
+        data.map((loc, index) => {
+            return(
+                <div key={index}>
+                    {loc.name}
+                </div>
+        )})
      );
 }
  

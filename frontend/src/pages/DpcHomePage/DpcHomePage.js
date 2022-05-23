@@ -44,8 +44,8 @@ const DpcHomePage = () => {
     <div className="container">
       <OverviewTable data={locations} reqLists={reqLists}/>
       <TaskCalendar/>
-      <LocList/>
-      <DepList/>
+      <LocList data={locations}/>
+      <DepList data={locations}/>
     </div>
   );
 };
