@@ -11,7 +11,7 @@ const LocationPage = () => {
     const [user, token] = useAuth();
 
 
-    return ( 
+    return (
     <div className="container">
         <OverviewTable/>
         <DeploymentCD/>

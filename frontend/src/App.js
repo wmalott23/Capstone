@@ -30,16 +30,15 @@ function App() {
     <div>
       <Navbar />
       <Routes>
-        {console.log(user.is_deployer)}
-        {console.log(user.is_dpc)} 
-        {user.is_deployer ? <Route path="/" element={<PrivateRoute><DepHomePage /></PrivateRoute>}/> : null}
-        {user.is_dpc ? <Route path="/" element={<PrivateRoute><DpcHomePage /></PrivateRoute>}/> : null}
+        
+        <Route path="/dep/" element={<PrivateRoute><DepHomePage /></PrivateRoute>}/>
+        <Route path="/dpc" element={<PrivateRoute><DpcHomePage /></PrivateRoute>}/>
         <Route path="/" element={<PrivateRoute><HomePage /></PrivateRoute>}/>
-        {user.is_dpc ? <Route path="/dpc/loc" element={<PrivateRoute><DpcRegisterPage /></PrivateRoute>} /> : null}
-        {user.is_dpc ? <Route path="/dpc/register" element={<PrivateRoute><DpcRegisterPage /></PrivateRoute>} /> : null}
-        {user.is_dpc ? <Route path="/dpc/dep/details" element={<PrivateRoute><DpcRegisterPage /></PrivateRoute>} /> : null}
-        {user.is_dpc ? <Route path="/dpc/dep" element={<PrivateRoute><DpcRegisterPage /></PrivateRoute>} /> : null}
-        {user.is_dpc ? <Route path="/dep/register" element={<PrivateRoute><DepRegisterPage /></PrivateRoute>} /> : null}
+        <Route path="/dpc/loc" element={<PrivateRoute><DpcRegisterPage /></PrivateRoute>} />
+        <Route path="/dpc/register" element={<PrivateRoute><DpcRegisterPage /></PrivateRoute>} />
+        <Route path="/dpc/dep/details" element={<PrivateRoute><DpcRegisterPage /></PrivateRoute>} />
+        <Route path="/dpc/dep" element={<PrivateRoute><DpcRegisterPage /></PrivateRoute>} />
+        <Route path="/dep/register" element={<PrivateRoute><DepRegisterPage /></PrivateRoute>} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
       </Routes>

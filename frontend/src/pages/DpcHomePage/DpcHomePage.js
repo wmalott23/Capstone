@@ -14,23 +14,35 @@ const DpcHomePage = () => {
   // The "token" value is the JWT token that you will send in the header of any request requiring authentication
   const [user, token] = useAuth();
   const [locations, setLocations] = useState([])
-  const [locationNames, setLocationNames] = useState([])
+  const [reqLists, setReqLists] = useState([])
   
 
   const fetchLocations = async () => {
-    let response = await axios.get('http://127.0.0.1:8000/api/locations/')
-    setLocations(response.data)
-    setLocationNames(response.data.name)
+    try {
+      let response = await axios.get('http://127.0.0.1:8000/api/locations/')
+      setLocations(response.data)
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+
+  const fetchReqLists = async () => {
+    try {
+      let response = await axios.get('http://127.0.0.1:8000/api/requirements_lists/')
+      setReqLists(response.data)
+    } catch (error) {
+      console.log(error.message)
+    }
   }
 
   useEffect(() => {
     fetchLocations()
-  }, );
+    fetchReqLists()
+  }, []);
 
   return (
     <div className="container">
-      {console.log(locations)}
-      <OverviewTable data={locations} dataNames={locationNames}/>
+      <OverviewTable data={locations} reqLists={reqLists}/>
       <TaskCalendar/>
       <LocList/>
       <DepList/>

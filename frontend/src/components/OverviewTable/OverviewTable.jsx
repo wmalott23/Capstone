@@ -1,42 +1,32 @@
 import React, { useState } from 'react';
+import Paper from '@mui/material/Paper';
+import { ViewState } from '@devexpress/dx-react-scheduler';
+import { Scheduler, MonthView, Appointments } from '@devexpress/dx-react-scheduler-material-ui';
 
-const OverviewTable = ({data, dataNames}) => {
+const OverviewTable = ({data, req_list}) => {
 
-    const d = new Date()
-    const day = d.getDate()
-    const month = d.getMonth()
-    const year = d.getFullYear()
-    const req_list = data.deployment.requirement_list
+    // const d = new Date()
+    // const day = d.getDate()
+    // const month = d.getMonth()
+    // const year = d.getFullYear()
 
-
+    const currentDate = '2018-11-01';
+    const schedulerData = [
+        { startDate: '2018-11-01T09:45', endDate: '2018-11-01T11:00', title: 'Meeting' },
+        { startDate: '2018-11-01T12:00', endDate: '2018-11-01T13:30', title: 'Go to a gym' },
+      ];
 
     return ( 
-        <div>
-            {console.log(data)}
-            {
-                data.map((index) => {
-                    return (
-                        <div key={index}>
-                            <h1>{data.name}</h1>
-                            {data.deployment.map((index) => {
-                                <div key={index}>
-                                <h3 >{data.deployment.name}, {data.deployment.deployer.first_name} {data.deployment.deployer.last_name}</h3>
-                                {req_list.map((index) => {
-                                    <div key={index}>
-                                        <h4>{req_list.requirement.name}</h4>
-                                        {req_list.requirement.step.map((index) =>{
-                                            <div key={index}>
-                                                <p>{req_list.requirement.step.name}</p>
-                                            </div>
-                                        })}
-                                    </div>
-                                })}
-                                </div>
-                            })}
-                        </div>
-                    )})
-            }
-        </div>
+    <Paper>
+        <Scheduler
+          data={schedulerData}
+        >
+          <ViewState
+          />
+          <MonthView />
+          <Appointments />
+        </Scheduler>
+    </Paper>
      );
 }
  
