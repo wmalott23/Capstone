@@ -4,7 +4,7 @@ from .models import Cbt
 class CbtSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cbt
-        fields = ['id', 'name', 'deployer', 'deployer_id']
+        fields = ['id', 'deployer', 'deployer_id', 'name', 'exp']
         depth = 1
-    requirement_id = serializers.IntegerField(write_only=True)
+    deployer_id = serializers.IntegerField(write_only=True)
         

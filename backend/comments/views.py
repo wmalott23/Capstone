@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, get_list_or_404
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
@@ -13,7 +13,7 @@ from .models import Comment
 @permission_classes([AllowAny])
 def comments_list(request, id):
     comments = Comment.objects.filter(step_id=id)
-    serializer = Comment(comments, many=True)
+    serializer = CommentSerializer(comments, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 @api_view(['POST'])
