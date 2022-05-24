@@ -12,7 +12,7 @@ const DepHomePage = () => {
   const [user, token] = useAuth();
   const [depPi, setDepPi] = useState({})
   const [deployment, setDeployment] = useState({})
-  const [location, setLocation] = useState({})
+  const [steps, setSteps] = useState([])
 
   const fetchDepPi = async () => {
     try {
@@ -32,17 +32,15 @@ const DepHomePage = () => {
     }
   }
 
-  const fetchRequirements = async () => {
-
+  const fetchSteps = async () => {
     try {
-      console.log(deployment.location.id)
-      let response = await axios.get(`http://127.0.0.1:8000/api/locations/${deployment.location.id}/`)
-      setLocation(response.data)
+      console.log(deployment)
+      let response = await axios.get(`http://127.0.0.1:8000/api/steps/req/1/`)
+      setSteps(response.data)
     } catch (error) {
       console.log(error.message)
     }
-  }
-  
+  }  
 
   useEffect(() => {
     fetchDepPi()
@@ -52,12 +50,17 @@ const DepHomePage = () => {
     await fetchDeployment()
   }, [depPi]);
 
+  useEffect(async () => {
+    await fetchSteps()
+  }, [deployment]);
+
 
   return (
     <div className="container">
       {/* <OverviewTable/> */}
       <TaskCalendar/>
       <PIDisplay data={depPi}/>
+      {console.log(steps)}
     </div>
   );
 };

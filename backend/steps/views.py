@@ -27,7 +27,7 @@ def steps_post(request):
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def steps__list(request, id):
-    steps = Step.objects.filter(requirement__id=id)
+    steps = Step.objects.filter(requirement__requirement_list__deployment__id=id)
     serializer = StepSerializer(steps, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
