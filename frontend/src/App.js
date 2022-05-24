@@ -12,6 +12,9 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import DepRegisterPage from "./pages/DepRegisterPage/DepRegisterPage";
 import DpcRegisterPage from "./pages/DpcRegisterPage/DpcRegisterPage";
+import LocationPage from "./pages/LocationPage/LocationPage";
+import DepDetailsPage from "./pages/DepDetailsPage/DepDetailsPage";
+import DpcDepPage from "./pages/DpcDepPage/DpcDepPage"
 
 
 // Component Imports

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const DeploymentCD = (props) => {
 
@@ -21,7 +22,6 @@ const DeploymentCD = (props) => {
           let response = await axios.post(`${BASE_URL}/deployments/`, finalData);
           if (response.status === 201) {
             console.log("Successful created Deployer!");
-            setIsServerError(false);
           }
         } catch (error) {
           console.log(error.response.data);

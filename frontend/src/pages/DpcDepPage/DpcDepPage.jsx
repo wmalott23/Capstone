@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const DpcDepPage = () => {
 
@@ -20,6 +21,7 @@ const DpcDepPage = () => {
     const [dentSched, setDentSched] = useState('')
     const [dentExp, setDentExp] = useState('')
     const [loaEnd, setLoaEnd] = useState('')
+    const [isServerError, setIsServerError] = useState(false);
 
     const handleSubmit = async () => {
         const BASE_URL = "http://127.0.0.1:8000/api";

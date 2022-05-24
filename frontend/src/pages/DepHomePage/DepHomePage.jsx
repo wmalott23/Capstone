@@ -11,6 +11,7 @@ import axios from "axios";
 const DepHomePage = () => {
   const [user, token] = useAuth();
   const [depPi, setDepPi] = useState([])
+  const [deployment, setDeployment] = useState({})
 
   const fetchDepPi = async () => {
     try {
@@ -21,8 +22,18 @@ const DepHomePage = () => {
     }
   }
 
+  const fetchDeployment = async () => {
+    try {
+      let response = await axios.get(`http://127.0.0.1:8000/api/deployments/${depPi.deployment.id}/`)
+      setDeployment(response.data)
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+
   useEffect(() => {
     fetchDepPi()
+    fetchDeployment()
   }, []);
 
 
@@ -31,6 +42,7 @@ const DepHomePage = () => {
       <OverviewTable/>
       <TaskCalendar/>
       <PIDisplay data={depPi}/>
+      {console.log(deployment)}
     </div>
   );
 };

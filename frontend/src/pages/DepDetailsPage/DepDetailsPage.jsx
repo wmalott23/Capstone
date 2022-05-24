@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import useAuth from '../../hooks/useAuth';
 
 //Import Components
 import OverviewTable from '../../components/OverviewTable/OverviewTable';
@@ -10,18 +11,18 @@ const DepDetailsPage = () => {
 
 
 
-    const d = new Date()
-    const day = d.getDate()
-    const month = d.getMonth()+1
-    const year = d.getFullYear()
+    // const d = new Date()
+    // const day = d.getDate()
+    // const month = d.getMonth()+1
+    // const year = d.getFullYear()
 
-    const currentDate = `${year}-0${month}-${day}`;
-    const schedulerData = [
-        { startDate: `${currentDate}T11:00`, endDate: `${data.startDate}T12:00`, title: 'Meeting' },
-        { startDate: `${currentDate}T11:00`, endDate: `${currentDate}T12:00`, title: 'Meeting' },
-        { startDate: `${currentDate}T11:00`, endDate: `${currentDate}T12:00`, title: 'Meeting' },
-        { startDate: `${currentDate}T11:00`, endDate: `${currentDate}T12:00`, title: 'Meeting' },
-      ];
+    // const currentDate = `${year}-0${month}-${day}`;
+    // const schedulerData = [
+    //     { startDate: `${currentDate}T11:00`, endDate: `${}T12:00`, title: 'Meeting' },
+    //     { startDate: `${currentDate}T11:00`, endDate: `${currentDate}T12:00`, title: 'Meeting' },
+    //     { startDate: `${currentDate}T11:00`, endDate: `${currentDate}T12:00`, title: 'Meeting' },
+    //     { startDate: `${currentDate}T11:00`, endDate: `${currentDate}T12:00`, title: 'Meeting' },
+    //   ];
 
 
     return ( 
