@@ -1,8 +1,8 @@
 from django.db import models
-from requirements.models import Requirement
+from deployments.models import Deployment
 
 # Create your models here.
 
 class RequirementList(models.Model):
     name = models.CharField(max_length=30)
-    requirement = models.ForeignKey(Requirement, on_delete=models.CASCADE)
+    deployment = models.ForeignKey(Deployment, on_delete=models.CASCADE)

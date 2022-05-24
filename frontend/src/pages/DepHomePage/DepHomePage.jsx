@@ -28,7 +28,7 @@ const DepHomePage = () => {
 
   return (
     <div className="container">
-      {/* <OverviewTable/> */}
+      <OverviewTable/>
       <TaskCalendar/>
       <PIDisplay data={depPi}/>
     </div>

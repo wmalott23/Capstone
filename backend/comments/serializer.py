@@ -6,5 +6,4 @@ class CommentSerializer(serializers.ModelSerializer):
         model = Comment
         fields = ['id', 'step', 'step_id', 'user', 'comment_message']
         depth = 1
-
     step_id = serializers.IntegerField(write_only=True)

@@ -4,6 +4,6 @@ from .models import RequirementList
 class RequirementListSerializer(serializers.ModelSerializer):
     class Meta:
         model = RequirementList
-        fields = ['id', 'name', 'requirement', 'requirement_id']
+        fields = ['id', 'name', 'deployment', 'deployment_id']
         depth = 1
-    requirement_id = serializers.IntegerField(write_only=True)
+    deployment_id = serializers.IntegerField(write_only=True)

@@ -3,7 +3,7 @@ import Paper from '@mui/material/Paper';
 import { ViewState } from '@devexpress/dx-react-scheduler';
 import { Scheduler, MonthView, Appointments } from '@devexpress/dx-react-scheduler-material-ui';
 
-const OverviewTable = ({data, req_list}) => {
+const OverviewTable = ({data}) => {
 
     const location = data.map((el) => {
         return el.deployment.start_date
