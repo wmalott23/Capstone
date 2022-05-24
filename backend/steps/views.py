@@ -24,6 +24,13 @@ def steps_post(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def steps__list(request, id):
+    steps = Step.objects.filter(requirement__id=id)
+    serializer = StepSerializer(steps, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
 
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])

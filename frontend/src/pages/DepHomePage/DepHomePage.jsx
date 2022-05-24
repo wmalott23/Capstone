@@ -10,8 +10,9 @@ import axios from "axios";
 
 const DepHomePage = () => {
   const [user, token] = useAuth();
-  const [depPi, setDepPi] = useState([])
+  const [depPi, setDepPi] = useState({})
   const [deployment, setDeployment] = useState({})
+  const [location, setLocation] = useState({})
 
   const fetchDepPi = async () => {
     try {
@@ -31,18 +32,32 @@ const DepHomePage = () => {
     }
   }
 
+  const fetchRequirements = async () => {
+
+    try {
+      console.log(deployment.location.id)
+      let response = await axios.get(`http://127.0.0.1:8000/api/locations/${deployment.location.id}/`)
+      setLocation(response.data)
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+  
+
   useEffect(() => {
     fetchDepPi()
-    fetchDeployment()
   }, []);
+
+  useEffect(async () => {
+    await fetchDeployment()
+  }, [depPi]);
 
 
   return (
     <div className="container">
-      <OverviewTable/>
+      {/* <OverviewTable/> */}
       <TaskCalendar/>
       <PIDisplay data={depPi}/>
-      {console.log(deployment)}
     </div>
   );
 };
