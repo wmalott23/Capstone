@@ -10,12 +10,12 @@ import axios from "axios";
 
 const DepHomePage = () => {
   const [user, token] = useAuth();
-  const [depPi, setdepPi] = useState([])
+  const [depPi, setDepPi] = useState([])
 
   const fetchDepPi = async () => {
     try {
-      let response = await axios.get('http://127.0.0.1:8000/api/deployers/1/')
-      setReqLists(response.data)
+      let response = await axios.get(`http://127.0.0.1:8000/api/deployers/${user.dep_id}/`)
+      setDepPi(response.data)
     } catch (error) {
       console.log(error.message)
     }
@@ -28,7 +28,7 @@ const DepHomePage = () => {
 
   return (
     <div className="container">
-      <OverviewTable/>
+      {/* <OverviewTable/> */}
       <TaskCalendar/>
       <PIDisplay data={depPi}/>
     </div>

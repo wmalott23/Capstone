@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 const PIDisplay = (props) => {
 
-    let data=props.data
+    const data = props.data
 
     return ( 
         <div className="container">
@@ -61,7 +61,7 @@ const PIDisplay = (props) => {
             <div>
                 {data.loa_exp}
             </div>
-        </div>>
+        </div>
      );
 }
  

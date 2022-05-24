@@ -6,6 +6,7 @@ from django.contrib.auth.models import AbstractUser
 class User(AbstractUser):
     is_deployer = models.BooleanField('deployer status', default=False)
     is_dpc = models.BooleanField('dpc status', default=False)
+    dep_id = models.IntegerField('deployer Id', default=False)
     pass
     '''
     This is a custom version of the built in User class

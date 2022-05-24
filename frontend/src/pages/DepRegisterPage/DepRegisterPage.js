@@ -11,7 +11,8 @@ const DepRegisterPage = () => {
     firstName: "",
     lastName: "",
     isDeployer: true,
-    isDpc: false
+    isDpc: false,
+    depId: ""
   };
   const [formData, handleInputChange, handleSubmit] = useCustomForm(
     defaultValues,
@@ -67,6 +68,16 @@ const DepRegisterPage = () => {
             onChange={handleInputChange}
           />
         </label>
+        <label>
+          Deployer Id:{" "}
+          <input
+            type="text"
+            name="depId"
+            value={formData.depId}
+            onChange={handleInputChange}
+          />
+        </label>
+
         <p style={{ fontSize: "12px" }}>
           NOTE: Make this an uncommon password with characters, numbers, and
           special characters!

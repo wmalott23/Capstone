@@ -16,7 +16,8 @@ function setUserObject(user) {
     id: user.user_id,
     first_name: user.first_name,
     is_deployer: user.is_deployer,
-    is_dpc: user.is_dpc
+    is_dpc: user.is_dpc,
+    dep_id: user.dep_id
   };
 }
 
@@ -38,7 +39,8 @@ export const AuthProvider = ({ children }) => {
         first_name: registerData.firstName,
         last_name: registerData.lastName,
         is_deployer: registerData.isDeployer,
-        is_dpc: registerData.isDpc
+        is_dpc: registerData.isDpc,
+        dep_id: registerData.depId
       };
       let response = await axios.post(`${BASE_URL}/register/`, finalData);
       if (response.status === 201) {
