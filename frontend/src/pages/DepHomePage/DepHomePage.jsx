@@ -47,15 +47,11 @@ const DepHomePage = () => {
     let startDates = []
     let startDates2 = []
     let endDates = []
-    console.log(steps)
     let startDate = steps[0].requirement.requirement_list.deployment.start_date
     let revSteps = []
     for(let i=steps.length-1; i>(-1); i--){
       revSteps.push(steps[i])
     }
-    console.log(revSteps)
-
-
     var n = Date.parse(startDate)
     var d = new Date(n)
     let e = new Date(d).toISOString()
@@ -69,7 +65,6 @@ const DepHomePage = () => {
     }
     endDates.push(e)
     for(let i=0; i<revSteps.length-1; i++){
-      console.log(startDates2)
       let endMinusOne = startDates2[i].setDate(startDates2[i].getDate()-1)
       let newD = new Date(endMinusOne).toISOString()
       endDates.push(newD)
@@ -82,7 +77,6 @@ const DepHomePage = () => {
       stepObjects.push({startDate: startDates[i], endDate: endDates[i], title: stepTitles[i]})
     }
     setStepDates(stepObjects)
-    console.log(stepDates)
   }
 
 
