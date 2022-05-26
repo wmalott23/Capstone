@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import useAuth from '../../hooks/useAuth';
 
 //Import Components
-import OverviewTable from '../../components/OverviewTable/OverviewTable';
 import StepsCRUD from '../../components/StepsCRUD/StepsCRUD';
+import ReqBreakOut from '../../components/ReqBreakOut/ReqBreakOut';
+import ReqCRUD from '../../components/ReqCRUD/ReqCRUD';
+import ReqListCRUD from '../../components/ReqListCRUD/ReqListCRUD';
 
 const DepDetailsPage = () => {
 
@@ -27,7 +29,9 @@ const DepDetailsPage = () => {
 
     return ( 
     <div className="container">
-        <OverviewTable/>
+        <ReqBreakOut/>
+        <ReqListCRUD/>
+        <ReqCRUD/>
         <StepsCRUD/>
     </div>     
     );
