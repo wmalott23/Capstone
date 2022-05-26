@@ -8,12 +8,9 @@ const TaskCalendar = ({dates}) => {
     const today = new Date().toISOString()
     const todaySchedule = []
     const currentDate = today;
-
     for(let i=0; i<dates.length; i++){
       if(dates[i].startDate<today && today<dates[i].endDate){
-        console.log(todaySchedule)
         todaySchedule.push({startDate: today, endDate: today, title: dates[i].title})
-        console.log(todaySchedule)
       }
     }
     const schedulerData = todaySchedule
