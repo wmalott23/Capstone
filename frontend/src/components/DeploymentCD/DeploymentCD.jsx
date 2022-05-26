@@ -6,8 +6,7 @@ const DeploymentCD = (props) => {
     const [name, setName] = useState('')
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
-    const [deployerId, setDeployerId] = useState(0)
-    const [requirementListId, setRequirementListId] = useState(0)
+    const [locationId, setLocationId] = useState(0)
 
     const handleSubmit = async () => {
         const BASE_URL = "http://127.0.0.1:8000/api";
@@ -16,8 +15,7 @@ const DeploymentCD = (props) => {
             name: name,
             start_date: startDate,
             end_date: endDate,
-            deployer: deployerId,
-            requirement_list: requirementListId,
+            location_id: locationId
           };
           let response = await axios.post(`${BASE_URL}/deployments/`, finalData);
           if (response.status === 201) {
@@ -32,41 +30,34 @@ const DeploymentCD = (props) => {
         <div className="container">
       <form className="form" onSubmit={handleSubmit}>
         <label>
-          First name:{" "}
+          Position Title:{" "}
           <input
             type="text"
             onChange={(event) => setName(event.target.value)}
           />
         </label>
         <label>
-          Last Name:{" "}
+          Start Date:{" "}
           <input
             type="text"
             onChange={(event) => setStartDate(event.target.value)}
           />
         </label>
         <label>
-          Email:{" "}
+          End Date:{" "}
           <input
             type="text"
             onChange={(event) => setEndDate(event.target.value)}
           />
         </label>
         <label>
-          Address:{" "}
+          Location Id:{" "}
           <input
             type="text"
-            onChange={(event) => setDeployerId(event.target.value)}
+            onChange={(event) => setLocationId(event.target.value)}
           />
         </label>
-        <label>
-          Phone Number:{" "}
-          <input
-            type="text"
-            onChange={(event) => setRequirementListId(event.target.value)}
-          />
-        </label>
-        <button>Create Deployer!</button>
+        <button>Create Deployment!</button>
       </form>
     </div>
      );
