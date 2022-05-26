@@ -4,7 +4,13 @@ const DepList = ({data}) => {
 
 
     return ( 
-        null
+        data.map((el, index) => {
+            return (
+                <div key={index}>
+                   {el.last_name}
+                </div>
+            )
+        })
      );
 }
  

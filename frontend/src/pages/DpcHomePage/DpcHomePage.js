@@ -75,13 +75,10 @@ const DpcHomePage = () => {
       let depId = deployments[j].id
       let lastName
       // gets all steps for this deployment
-      console.log(depId)
-      console.log(steps[0].requirement.requirement_list.deployment.id)
       for(let i=0; i<steps.length; i++){
         if(steps[i].requirement.requirement_list.deployment.id === depId){
           depSteps.push(steps[i])
         }}
-      console.log(depSteps)
       //sets lastName for this deployment
       for(let i=0; i<deployers.length; i++){
         if(deployers[i].deployment.id === depId){
@@ -97,7 +94,6 @@ const DpcHomePage = () => {
             adjSteps.push(depSteps[l])
           }
       }}
-      console.log(depSteps)
       //calculates start dates (from last step) based on length, counting backwards from the deployment start date
       var n = Date.parse(startDate)
       var d = new Date(n)
@@ -121,7 +117,6 @@ const DpcHomePage = () => {
       let stepTitles = adjSteps.map(el => {
         return `${lastName} ${el.requirement.name} ${el.name}`
       })
-      console.log(lastName)
       //assigns startdate, enddate, and title into a list of objects (one for each step)
       for(let i=0; i<startDates.length; i++){
         stepObjects.push({startDate: startDates[i], endDate: endDates[i], title: stepTitles[i]})
@@ -138,7 +133,7 @@ const DpcHomePage = () => {
       <OverviewTable dates={stepDates}/>
       <TaskCalendar dates={stepDates}/>
       <LocList data={locations}/>
-      <DepList data={locations}/>
+      <DepList data={deployers}/>
     </div>
   );
 };
