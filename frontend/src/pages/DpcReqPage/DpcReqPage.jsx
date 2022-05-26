@@ -10,29 +10,27 @@ import ReqListCRUD from '../../components/ReqListCRUD/ReqListCRUD';
 const DepDetailsPage = () => {
 
     const [user, token] = useAuth();
+    const [steps, setSteps] = useState([])
 
+    useEffect(() => {
+        fetchSteps()
+    })
 
-
-    // const d = new Date()
-    // const day = d.getDate()
-    // const month = d.getMonth()+1
-    // const year = d.getFullYear()
-
-    // const currentDate = `${year}-0${month}-${day}`;
-    // const schedulerData = [
-    //     { startDate: `${currentDate}T11:00`, endDate: `${}T12:00`, title: 'Meeting' },
-    //     { startDate: `${currentDate}T11:00`, endDate: `${currentDate}T12:00`, title: 'Meeting' },
-    //     { startDate: `${currentDate}T11:00`, endDate: `${currentDate}T12:00`, title: 'Meeting' },
-    //     { startDate: `${currentDate}T11:00`, endDate: `${currentDate}T12:00`, title: 'Meeting' },
-    //   ];
-
+    const fetchSteps = async () => {
+        try {
+          let response = await axios.get(`http://127.0.0.1:8000/api/steps/`)
+          setSteps(response.data)
+        } catch (error) {
+          console.log(error.message)
+        }
+      }
 
     return ( 
     <div className="container">
-        <ReqBreakOut/>
-        <ReqListCRUD/>
-        <ReqCRUD/>
-        <StepsCRUD/>
+        <ReqBreakOut steps={steps}/>
+        <ReqListCRUD steps={steps}/>
+        <ReqCRUD steps={steps}/>
+        <StepsCRUD steps={steps}/>
     </div>     
     );
 }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const ReqCRUD = (props) => {
+const ReqCRUD = ({steps}) => {
     return ( 
         null
      );

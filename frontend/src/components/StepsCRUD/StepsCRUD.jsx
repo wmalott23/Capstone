@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 
-const StepsCRUD = (props) => {
+const StepsCRUD = ({steps}) => {
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [length, setLength] = useState('')

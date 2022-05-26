@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const ReqBreakOut = (props) => {
+const ReqBreakOut = ({steps}) => {
     return ( 
         null
      );
