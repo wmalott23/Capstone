@@ -8,28 +8,26 @@ import TaskCalendar from "../../components/TaskCalendar/TaskCalendar";
 import LocList from "../../components/LocList/LocList";
 import DepList from "../../components/DepList/DepList";
 import axios from "axios";
-import { create } from "@mui/material/styles/createTransitions";
 
 const DpcHomePage = () => {
   // The "user" value from this Hook contains the decoded logged in user information (username, first name, id)
   // The "token" value is the JWT token that you will send in the header of any request requiring authentication
   const [user, token] = useAuth();
   const [locations, setLocations] = useState([])
-  const [reqLists, setReqLists] = useState([])
   const [deployers, setDeployers] = useState([])
+  const [deployments, setDeployments] = useState([])
   const [steps, setSteps] = useState([])
   const [stepDates, setStepDates] = useState([])
-  const [depName, setDepName] = useState('')  
 
   useEffect(() => {
-    fetchLocations()
-    fetchReqLists()
     fetchDeployers()
+    fetchDeployments()
+    fetchLocations()
   }, []);
 
-  useEffect(() => {
+  useEffect(async () => {
     fetchSteps()
-    createStepTimeline()
+    createStepsByDeployment()
   }, [deployers])
 
   const fetchLocations = async () => {
@@ -40,16 +38,6 @@ const DpcHomePage = () => {
       console.log(error.message)
     }
   }
-
-  const fetchReqLists = async () => {
-    try {
-      let response = await axios.get('http://127.0.0.1:8000/api/requirements_lists/')
-      setReqLists(response.data)
-    } catch (error) {
-      console.log(error.message)
-    }
-  }
-
   const fetchDeployers = async () => {
     try {
       let response = await axios.get('http://127.0.0.1:8000/api/deployers/',
@@ -59,7 +47,6 @@ const DpcHomePage = () => {
       console.log(error.message)
     }
   }
-
   const fetchSteps = async () => {
     try {
       let response = await axios.get(`http://127.0.0.1:8000/api/steps/`)
@@ -68,40 +55,79 @@ const DpcHomePage = () => {
       console.log(error.message)
     }
   }
+  const fetchDeployments = async () => {
+    try {
+      let response = await axios.get(`http://127.0.0.1:8000/api/deployments/`)
+      setDeployments(response.data)
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
 
-  const createStepTimeline = () => {
-    let startDates = []
-    let startDates2 = []
-    let endDates = []
-    let startDate = steps[0].requirement.requirement_list.deployment.start_date
-    let revSteps = []
-    for(let i=steps.length-1; i>(-1); i--){
-      revSteps.push(steps[i])
-    }
-    var n = Date.parse(startDate)
-    var d = new Date(n)
-    let e = new Date(d).toISOString()
-    for(let i=0; i<revSteps.length; i++){
-      let revLength = revSteps[i].length
-      let startInMilli = d.setDate(d.getDate()-revLength)
-      let start = new Date(startInMilli).toISOString()
-      let start2 = new Date(start)
-      startDates.push(start)
-      startDates2.push(start2)
-    }
-    endDates.push(e)
-    for(let i=0; i<revSteps.length-1; i++){
-      let endMinusOne = startDates2[i].setDate(startDates2[i].getDate()-1)
-      let newD = new Date(endMinusOne).toISOString()
-      endDates.push(newD)
-    }
-    let stepTitles = steps.map(el => {
-      return `${depPi.last_name} ${el.requirement.name} ${el.name}`
-    })
+  //takes the list of deployments, gets steps in a given deployment and spits out steps in a format acceptable to the overviewTable and taskCalendar
+  const createStepsByDeployment = () => {
     let stepObjects = []
-    for(let i=0; i<startDates.length; i++){
-      stepObjects.push({startDate: startDates[i], endDate: endDates[i], title: stepTitles[i]})
-    }
+    for(let j=0; j<deployments.length; j++){
+      let depSteps = []
+      let startDates = []
+      let startDates2 = []
+      let endDates = []
+      let depId = deployments[j].id
+      let lastName
+      // gets all steps for this deployment
+      console.log(depId)
+      console.log(steps[0].requirement.requirement_list.deployment.id)
+      for(let i=0; i<steps.length; i++){
+        if(steps[i].requirement.requirement_list.deployment.id === depId){
+          depSteps.push(steps[i])
+        }}
+      console.log(depSteps)
+      //sets lastName for this deployment
+      for(let i=0; i<deployers.length; i++){
+        if(deployers[i].deployment.id === depId){
+          lastName = deployers[i].last_name
+        }}
+      //sets start date of deployment
+      let startDate = depSteps[0].requirement.requirement_list.deployment.start_date
+      //organizes based on step priority, priority number 1 last in line so that it gets assigned a start date last and is put in the front of the dates
+      let adjSteps = []
+      for(let i=depSteps.length; i>0; i--){
+        for(let l=0; l<depSteps.length; l++){
+          if(depSteps[l].priority === i){
+            adjSteps.push(depSteps[l])
+          }
+      }}
+      console.log(depSteps)
+      //calculates start dates (from last step) based on length, counting backwards from the deployment start date
+      var n = Date.parse(startDate)
+      var d = new Date(n)
+      let e = new Date(d).toISOString()
+      for(let i=0; i<adjSteps.length; i++){
+        let adjLen = adjSteps[i].len
+        let startInMilli = d.setDate(d.getDate()-adjLen)
+        let start = new Date(startInMilli).toISOString()
+        let start2 = new Date(start)
+        startDates.push(start)
+        startDates2.push(start2)
+      }
+      //calculates end dates (from last step) (subtracting one from start date in last step to get end date in second to last step)
+      endDates.push(e)
+      for(let i=0; i<adjSteps.length-1; i++){
+        let endMinusOne = startDates2[i].setDate(startDates2[i].getDate()-1)
+        let newD = new Date(endMinusOne).toISOString()
+        endDates.push(newD)
+      }
+      //pulls titles from each step
+      let stepTitles = adjSteps.map(el => {
+        return `${lastName} ${el.requirement.name} ${el.name}`
+      })
+      console.log(lastName)
+      //assigns startdate, enddate, and title into a list of objects (one for each step)
+      for(let i=0; i<startDates.length; i++){
+        stepObjects.push({startDate: startDates[i], endDate: endDates[i], title: stepTitles[i]})
+      }}
+    //returns list of objects
+    console.log(stepObjects)
     setStepDates(stepObjects)
   }
 
@@ -109,10 +135,10 @@ const DpcHomePage = () => {
 
   return (
     <div className="container">
-      {/* <OverviewTable data={locations} reqLists={reqLists}/>
-      <TaskCalendar/> */}
+      <OverviewTable dates={stepDates}/>
+      <TaskCalendar dates={stepDates}/>
       <LocList data={locations}/>
-      {/* <DepList data={locations}/> */}
+      <DepList data={locations}/>
     </div>
   );
 };

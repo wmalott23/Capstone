@@ -7,4 +7,5 @@ class Step(models.Model):
     name = models.CharField(max_length=30)
     requirement = models.ForeignKey(Requirement, on_delete=models.CASCADE)
     description = models.CharField(max_length=255)
-    length = models.IntegerField()
+    priority = models.IntegerField()
+    len = models.IntegerField()
