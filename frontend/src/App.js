@@ -13,7 +13,7 @@ import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import DepRegisterPage from "./pages/DepRegisterPage/DepRegisterPage";
 import DpcRegisterPage from "./pages/DpcRegisterPage/DpcRegisterPage";
 import LocationPage from "./pages/LocationPage/LocationPage";
-import DepDetailsPage from "./pages/DepDetailsPage/DepDetailsPage";
+import DpcReqPage from "./pages/DpcReqPage/DpcReqPage"
 import DpcDepPage from "./pages/DpcDepPage/DpcDepPage"
 
 
@@ -38,7 +38,7 @@ function App() {
         <Route path="/" element={<PrivateRoute><HomePage /></PrivateRoute>}/>
         <Route path="/dpc/loc/:locationId" element={<PrivateRoute><LocationPage /></PrivateRoute>} />
         <Route path="/dpc/register" element={<PrivateRoute><DpcRegisterPage /></PrivateRoute>} />
-        <Route path="/dpc/dep/details" element={<PrivateRoute><DepDetailsPage /></PrivateRoute>} />
+        <Route path="/dpc/details" element={<PrivateRoute><DpcReqPage /></PrivateRoute>} />
         <Route path="/dpc/dep" element={<PrivateRoute><DpcDepPage /></PrivateRoute>} />
         <Route path="/dep/register" element={<PrivateRoute><DepRegisterPage /></PrivateRoute>} />
         <Route path="/login" element={<LoginPage />} />

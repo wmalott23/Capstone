@@ -23,12 +23,8 @@ const DpcHomePage = () => {
     fetchDeployers()
     fetchDeployments()
     fetchLocations()
-  }, []);
-
-  useEffect(async () => {
     fetchSteps()
-    createStepsByDeployment()
-  }, [deployers])
+  }, []);
 
   const fetchLocations = async () => {
     try {
@@ -51,6 +47,7 @@ const DpcHomePage = () => {
     try {
       let response = await axios.get(`http://127.0.0.1:8000/api/steps/`)
       setSteps(response.data)
+      createStepsByDeployment()
     } catch (error) {
       console.log(error.message)
     }
@@ -66,6 +63,7 @@ const DpcHomePage = () => {
 
   //takes the list of deployments, gets steps in a given deployment and spits out steps in a format acceptable to the overviewTable and taskCalendar
   const createStepsByDeployment = () => {
+    console.log(steps)
     let stepObjects = []
     for(let j=0; j<deployments.length; j++){
       let depSteps = []
@@ -85,6 +83,8 @@ const DpcHomePage = () => {
           lastName = deployers[i].last_name
         }}
       //sets start date of deployment
+      console.log(depSteps)
+      console.log(depSteps[0].requirement)
       let startDate = depSteps[0].requirement.requirement_list.deployment.start_date
       //organizes based on step priority, priority number 1 last in line so that it gets assigned a start date last and is put in the front of the dates
       let adjSteps = []

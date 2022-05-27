@@ -6,17 +6,26 @@ import StepsCRUD from '../../components/StepsCRUD/StepsCRUD';
 import ReqBreakOut from '../../components/ReqBreakOut/ReqBreakOut';
 import ReqCRUD from '../../components/ReqCRUD/ReqCRUD';
 import ReqListCRUD from '../../components/ReqListCRUD/ReqListCRUD';
+import axios from "axios";
 
 const DepDetailsPage = () => {
 
     const [user, token] = useAuth();
     const [steps, setSteps] = useState([])
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        fetchSteps()
-    })
+        let mounted = true
+        fetchSteps().then(() => {
+            if(mounted) {
+                setLoading(false)
+            }})
+        return function cleanup() {
+            mounted = false
+        }
+    }, [])
 
-    const fetchSteps = async () => {
+    async function fetchSteps(){
         try {
           let response = await axios.get(`http://127.0.0.1:8000/api/steps/`)
           setSteps(response.data)
@@ -25,7 +34,7 @@ const DepDetailsPage = () => {
         }
       }
 
-    return ( 
+    return ( loading ? <p>LOADING</p> :
     <div className="container">
         <ReqBreakOut steps={steps}/>
         <ReqListCRUD steps={steps}/>
