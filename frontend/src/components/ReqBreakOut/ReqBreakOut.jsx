@@ -50,14 +50,16 @@ const ReqBreakOut = ({steps}) => {
         setReqs(tempReqs)
         }
     const fetchReqsByList = () => {
+        let reqsListToBePutIntoList = []
         let reqsByListList = []
-        console.log(reqsList)
         reqsList.map((el) => {
             console.log(el)
             for(let i=0; i<reqs.length; i++){
                 if(reqs[i].requirement_list.id === el.id){
-                    reqsByListList.push(reqs[i])
+                    reqsListToBePutIntoList.push(reqs[i])
                 }}
+            reqsByListList.push(reqsListToBePutIntoList)
+            reqsListToBePutIntoList = []
         })
         console.log(reqsByListList)
         setReqsByList(reqsByListList)
@@ -65,12 +67,15 @@ const ReqBreakOut = ({steps}) => {
 
     }
     const fetchStepsByList = () => {
+        let stepsListToBePutIntoList = []
         let stepsByListList = []
         reqsList.map((el) => {
             for(let i=0; i<reqs.length; i++)
                 if(steps[i].requirement.requirement_list.id === el.id){
-                    stepsByListList.push(steps[i])
+                    stepsListToBePutIntoList.push(steps[i])
                 }
+            stepsByListList.push(stepsListToBePutIntoList)
+            stepsListToBePutIntoList = []
         })
         console.log(stepsByListList)
         setStepsByList(stepsByListList)
@@ -79,19 +84,20 @@ const ReqBreakOut = ({steps}) => {
 
     return ( 
         <div>
-            {loading ? <p>LOADING</p> : reqsList && reqsList.map((el, index) => {
+            {loading ? <p>LOADING</p> : 
+            reqsList && reqsList.map((el, index) => {
+                let reqsByListMap = reqsByList[index].map((el) => `Requirement Id: ${el.id} Requirement Title: ${el.name}\n`)
+                let distinctReqsByList = [...new Set(reqsByListMap)]
+                let reqsByListSpread = [...distinctReqsByList]
+                let stepsByListMap = stepsByList[index].map((el) => `Step Id: ${el.id} Step Title: ${el.name}\n Part of Requirement: ${el.requirement.name}\n`)
+                let stepsByListSpread =[...stepsByListMap]
                 console.log(reqsList, reqs, reqsByList, stepsByList)
                 return (
                     <div key={index}>
-                        <p>
-                            {el.name}
-                        </p>
-                        <p>
-                            {reqsByList[index].name}
-                        </p>
-                        <p>
-                            {stepsByList[index].name}
-                        </p>
+                        <p>{`Requirement List ID: ${el.id}
+                            Requirement List Title: ${el.name}\n`}</p>
+                        <p>{reqsByListSpread}</p>
+                        <p>{stepsByListSpread}</p>
                     </div>
                 )
             })}
