@@ -26,7 +26,7 @@ def steps_post(request):
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
-def steps__list(request, id):
+def steps_list(request, id):
     steps = Step.objects.filter(requirement__requirement_list__deployment__id=id)
     serializer = StepSerializer(steps, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
@@ -41,3 +41,10 @@ def steps_update(request, pk):
         serializer.save(user=request.user)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def step_delete(request, pk):
+    step = get_object_or_404(Step, pk=pk)
+    step.delete()
+    return Response(status=status.HTTP_204_NO_CONTENT)

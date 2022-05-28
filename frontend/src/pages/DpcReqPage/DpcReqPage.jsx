@@ -37,9 +37,9 @@ const DepDetailsPage = () => {
     return ( loading ? <p>LOADING</p> :
     <div className="container">
         <ReqBreakOut steps={steps}/>
-        <ReqListCRUD steps={steps}/>
-        <ReqCRUD steps={steps}/>
-        <StepsCRUD steps={steps}/>
+        <ReqListCRUD/>
+        <ReqCRUD/>
+        <StepsCRUD/>
     </div>     
     );
 }

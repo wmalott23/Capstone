@@ -25,11 +25,6 @@ const ReqBreakOut = ({steps}) => {
         fetchStepsByList()
     }, [reqsList])
 
-    // useEffect(() => {
-    //     fetchReqsByList()
-    //     fetchStepsByList()
-    // }, [reqs])
-
 
     const fetchReqsList = async () => {
         try {

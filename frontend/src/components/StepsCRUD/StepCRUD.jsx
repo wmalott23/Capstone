@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ReqCreate from './ReqCreate/ReqCreate';
 import ReqUpdate from './ReqUpdate/ReqUpdate';
-import ReqDelete from './ReqDelete/ReqDelete';
+import ReqDelete from './StepDelete/StepDelete';
 
 const ReqCRUD = (props) => {
 
