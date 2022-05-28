@@ -16,4 +16,4 @@ const ReqCRUD = (props) => {
   );
 };
  
-export default ReqListCRUD;
+export default ReqCRUD;

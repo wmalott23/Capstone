@@ -1,23 +1,29 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { Modal } from 'react-bootstrap';
 
-const ReqCreate = (props) => {
+const StepCreate = (props) => {
 
     const [name, setName] = useState('');
-    const [priority, setPriority] = useState('100');
-    const [requirementListId, setRequirementListId] = useState(0);
+    const [requirementId, setRequirementId] = useState(0);
+    const [priority, setPriority] = useState(0);
+    const [description, setDescription] = useState('');
+    const [len, setLen] = useState(0);
 
     function handleSubmit(event) {
         event.preventDefault()
-        let req = {
+        let step = {
             name: name,
+            requirement_id: requirementId,
             priority: priority,
-            requirement_list_id: requirementListId,
+            description: description,
+            len: len
         };
-        postReq(req);
+        postStep(step);
     }
 
-    async function postReq(req){
-        let response = await axios.post(`http://127.0.0.1:8000/api/requirements/`, req);
+    async function postStep(step){
+        let response = await axios.post(`http://127.0.0.1:8000/api/steps/`, step);
         if(response.status === 201){
             window.location.reload(false);
         }
@@ -32,11 +38,11 @@ const ReqCreate = (props) => {
     return ( 
         <div>
         <button className="btn bg-success text-white m-1" onClick={handleShow}>
-            Create Requirement
+            Create Step
         </button>
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-                <Modal.Title>Create Requirement</Modal.Title>
+                <Modal.Title>Create Step</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <form className="modal-body p-1 d-flex flex-column align-content-end rounded" onSubmit={handleSubmit}>
@@ -44,8 +50,18 @@ const ReqCreate = (props) => {
                         <textarea className="form-control form-control" type='text' placeholder="Name:" onChange={(event) => setName(event.target.value)}></textarea>
                     </div>
                     <div className="d-flex flex-column align-content-end p-1">
-                        <textarea className="form-control form-control" type='text' placeholder="Requirement List ID:" onChange={(event) => setRequirementListId(event.target.value)}></textarea>
+                        <textarea className="form-control form-control" type='text' placeholder="Priority: (Lower numbers are higher priority)" onChange={(event) => setPriority(event.target.value)}></textarea>
                     </div>
+                    <div className="d-flex flex-column align-content-end p-1">
+                        <textarea className="form-control form-control" type='text' placeholder="Description:" onChange={(event) => setDescription(event.target.value)}></textarea>
+                    </div>
+                    <div className="d-flex flex-column align-content-end p-1">
+                        <textarea className="form-control form-control" type='text' placeholder="Length:" onChange={(event) => setLen(event.target.value)}></textarea>
+                    </div>
+                    <div className="d-flex flex-column align-content-end p-1">
+                        <textarea className="form-control form-control" type='text' placeholder="Requirement ID:" onChange={(event) => setRequirementId(event.target.value)}></textarea>
+                    </div>
+
                     <button className="btn bg-success col-md-5 align-self-center text-white" onClick={handleClose}>Submit</button>
                 </form>
             </Modal.Body>
@@ -54,4 +70,4 @@ const ReqCreate = (props) => {
      );
 }
  
-export default ReqCreate;
+export default StepCreate;

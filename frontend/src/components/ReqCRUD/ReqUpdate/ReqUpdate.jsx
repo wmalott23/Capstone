@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { Modal } from 'react-bootstrap';
 
 const ReqUpdate = () => {
     const [id, setId] = useState(0);

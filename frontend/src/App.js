@@ -38,7 +38,7 @@ function App() {
         <Route path="/" element={<PrivateRoute><HomePage /></PrivateRoute>}/>
         <Route path="/dpc/loc/:locationId" element={<PrivateRoute><LocationPage /></PrivateRoute>} />
         <Route path="/dpc/register" element={<PrivateRoute><DpcRegisterPage /></PrivateRoute>} />
-        <Route path="/dpc/details" element={<PrivateRoute><DpcReqPage /></PrivateRoute>} />
+        <Route path="/dpc/req" element={<PrivateRoute><DpcReqPage /></PrivateRoute>} />
         <Route path="/dpc/dep" element={<PrivateRoute><DpcDepPage /></PrivateRoute>} />
         <Route path="/dep/register" element={<PrivateRoute><DepRegisterPage /></PrivateRoute>} />
         <Route path="/login" element={<LoginPage />} />

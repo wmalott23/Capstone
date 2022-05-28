@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { Modal } from 'react-bootstrap';
 
-const ReqListDelete = () => {
+const StepDelete = () => {
 
     const [id, setId] = useState(0);
 
     function handleSubmit(event) {
         event.preventDefault()
-        delReqList();
+        delStep();
     }
 
-    async function delReqList(){
-        let response = await axios.delete(`http://127.0.0.1:8000/api/requirements/${id}`);
+    async function delStep(){
+        let response = await axios.delete(`http://127.0.0.1:8000/api/steps/del/${id}`);
         if(response.status === 204){
             window.location.reload(false);
         }
@@ -25,11 +27,11 @@ const ReqListDelete = () => {
     return ( 
         <div>
         <button className="btn bg-success text-white m-1" onClick={handleShow}>
-            Delete Requirement
+            Delete Step
         </button>
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-                <Modal.Title>Delete Requirement</Modal.Title>
+                <Modal.Title>Delete Step</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <form className="modal-body p-1 d-flex flex-column align-content-end rounded" onSubmit={handleSubmit}>
@@ -44,4 +46,4 @@ const ReqListDelete = () => {
      );
 }
  
-export default ReqListDelete;
+export default StepDelete;

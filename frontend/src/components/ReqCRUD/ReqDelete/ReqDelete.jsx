@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { Modal } from 'react-bootstrap';
 
-const ReqListDelete = () => {
+const ReqDelete = () => {
 
     const [id, setId] = useState(0);
 
     function handleSubmit(event) {
         event.preventDefault()
-        delReqList();
+        delReq();
     }
 
-    async function delReqList(){
+    async function delReq(){
         let response = await axios.delete(`http://127.0.0.1:8000/api/requirements/${id}`);
         if(response.status === 204){
             window.location.reload(false);
@@ -44,4 +46,4 @@ const ReqListDelete = () => {
      );
 }
  
-export default ReqListDelete;
+export default ReqDelete;
