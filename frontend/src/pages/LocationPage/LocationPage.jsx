@@ -15,54 +15,67 @@ const LocationPage = () => {
     const {locationId} = useParams();
     const [user, token] = useAuth();
     const [allDeps, setAllDeps] = useState([])
-    const [deployments, setDeployments] = useState([])
     const [location, setLocation] = useState({})
     const [deployers, setDeployers] = useState([])
     const [stepDates, setStepDates] = useState([])
+    const [loading, setLoading] = useState(true)
+    const [steps, setSteps] = useState([])
 
     useEffect(() => {
+      fetchDeployments()
       fetchDeployers()
       fetchLocation()
       fetchSteps()
-  }, []);
+    }, []);
+
+    useEffect(() => {
+      let mounted=true
+      createStepsByLocation().then(() => {
+        if(mounted) {
+        }})
+      return function cleanup() {
+          mounted = false
+          setLoading(false)
+      }
+    }, [steps])
+
 
     const fetchLocation = async () => {
-        try {
-          let response = await axios.get(`http://127.0.0.1:8000/api/locations/${locationId}/`)
-          setLocation(response.data)
-        } catch (error) {
-          console.log(error.message)
-        }
+      try {
+        let response = await axios.get(`http://127.0.0.1:8000/api/locations/${locationId}/`)
+        setLocation(response.data)
+      } catch (error) {
+        console.log(error.message)
       }
-      const fetchDeployments = async () => {
-        try {
-          let response = await axios.get(`http://127.0.0.1:8000/api/deployments/`)
-          setAllDeps(response.data)
-        } catch (error) {
-          console.log(error.message)
-        }
+    }
+    const fetchDeployments = async () => {
+      try {
+        let response = await axios.get(`http://127.0.0.1:8000/api/deployments/`)
+        setAllDeps(response.data)
+      } catch (error) {
+        console.log(error.message)
       }
-      const fetchDeployers = async () => {
-        try {
-          let response = await axios.get('http://127.0.0.1:8000/api/deployers/',
-          {headers: { Authorization: `Bearer ${token}`}})
-          setDeployers(response.data)
-        } catch (error) {
-          console.log(error.message)
-        }
+    }
+    const fetchDeployers = async () => {
+      try {
+        let response = await axios.get('http://127.0.0.1:8000/api/deployers/',
+        {headers: { Authorization: `Bearer ${token}`}})
+        setDeployers(response.data)
+      } catch (error) {
+        console.log(error.message)
       }
-      const fetchSteps = async () => {
-        try {
-          let response = await axios.get(`http://127.0.0.1:8000/api/steps/`)
-          fetchDeployments()
-          createStepsByLocation(response.data)
-        } catch (error) {
-          console.log(error.message)
-        }
+    }
+    const fetchSteps = async () => {
+      try {
+        let response = await axios.get(`http://127.0.0.1:8000/api/steps/`)
+        setSteps(response.data)
+      } catch (error) {
+        console.log(error.message)
       }
+    }
 
     //takes in a location, gets all deployments for that location, gets steps for the deployments and spits out steps in a format acceptable to the overviewTable and taskCalendar
-    const createStepsByLocation = (steps) => {
+    const createStepsByLocation = async () => {
       let stepObjects = []
       //get a list of deployments in location, set deployments to that list
       let depList = []
@@ -72,7 +85,7 @@ const LocationPage = () => {
           depList.push(allDeps[i])
         }
       }
-      setDeployments(depList)
+      let deployments = depList
       //for every deployment in deployments
       for(let j=0; j<deployments.length; j++){
         let startDates = []
@@ -86,11 +99,13 @@ const LocationPage = () => {
           if(stepDepId === depId){
             depSteps.push(steps[i])
           }}
+          console.log(steps)
         //sets lastName for this deployment
         for(let i=0; i<deployers.length; i++){
           if(deployers[i].deployment.id === depId){
             lastName = deployers[i].last_name
           }}
+          console.log(steps)
         //sets start date of deployment
         let startDate = depSteps[0].requirement.requirement_list.deployment.start_date
         //organizes based on step priority, priority number 1 last in line so that it gets assigned a start date last and is put in the front of the dates
@@ -130,10 +145,9 @@ const LocationPage = () => {
         }}
       //returns list of objects
       setStepDates(stepObjects)
-      console.log(stepObjects)
     }
 
-    return (
+    return ( loading ? <p>LOADING</p> :
     <div className="container">
         <h1>{location.name} Details</h1>
         <OverviewTable dates={stepDates}/>

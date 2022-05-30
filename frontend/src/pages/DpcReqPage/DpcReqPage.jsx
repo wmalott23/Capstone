@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import useAuth from '../../hooks/useAuth';
+import Modal from 'react-bootstrap/Modal';
 
 //Import Components
 import StepsCRUD from '../../components/StepsCRUD/StepsCRUD';

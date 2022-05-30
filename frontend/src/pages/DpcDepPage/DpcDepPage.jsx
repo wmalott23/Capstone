@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const DpcDepPage = () => {
-
+    const [deploymentId, setDeploymentId] = useState(0)
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [email, setEmail] = useState('')
@@ -27,6 +27,7 @@ const DpcDepPage = () => {
         const BASE_URL = "http://127.0.0.1:8000/api";
         try {
           let finalData = {
+            deployment_id: deploymentId,
             first_name: firstName,
             last_name: lastName,
             email: email,
@@ -59,6 +60,13 @@ const DpcDepPage = () => {
     return ( 
         <div className="container">
       <form className="form" onSubmit={handleSubmit}>
+        <label>
+          Deployment ID:{" "}
+          <input
+            type="text"
+            onChange={(event) => setDeploymentId(event.target.value)}
+          />
+        </label>
         <label>
           First name:{" "}
           <input

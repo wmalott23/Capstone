@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import useAuth from "./hooks/useAuth";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import "react-bootstrap"
 
 // Pages Imports
 import DepHomePage from "./pages/DepHomePage/DepHomePage";
