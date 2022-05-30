@@ -8,6 +8,7 @@ import TaskCalendar from "../../components/TaskCalendar/TaskCalendar";
 import LocList from "../../components/LocList/LocList";
 import DepList from "../../components/DepList/DepList";
 import axios from "axios";
+import LocCRUD from "../../components/LocCRUD/LocCRUD";
 
 const DpcHomePage = () => {
   // The "user" value from this Hook contains the decoded logged in user information (username, first name, id)
@@ -18,6 +19,7 @@ const DpcHomePage = () => {
   const [deployments, setDeployments] = useState([])
   const [steps, setSteps] = useState([])
   const [stepDates, setStepDates] = useState([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     fetchDeployers()
@@ -25,6 +27,18 @@ const DpcHomePage = () => {
     fetchLocations()
     fetchSteps()
   }, []);
+
+  useEffect(() => {
+    let mounted=true
+    createStepsByDeployment().then(() => {
+      if(mounted) {
+      }})
+    return function cleanup() {
+        mounted = false
+        setLoading(false)
+    }
+  }, [steps])
+
 
   const fetchLocations = async () => {
     try {
@@ -47,7 +61,6 @@ const DpcHomePage = () => {
     try {
       let response = await axios.get(`http://127.0.0.1:8000/api/steps/`)
       setSteps(response.data)
-      createStepsByDeployment()
     } catch (error) {
       console.log(error.message)
     }
@@ -62,7 +75,7 @@ const DpcHomePage = () => {
   }
 
   //takes the list of deployments, gets steps in a given deployment and spits out steps in a format acceptable to the overviewTable and taskCalendar
-  const createStepsByDeployment = () => {
+  const createStepsByDeployment = async () => {
     console.log(steps)
     let stepObjects = []
     for(let j=0; j<deployments.length; j++){
@@ -80,11 +93,11 @@ const DpcHomePage = () => {
       //sets lastName for this deployment
       for(let i=0; i<deployers.length; i++){
         if(deployers[i].deployment.id === depId){
+          console.table(deployers[i].deployment.id, depId)
           lastName = deployers[i].last_name
         }}
       //sets start date of deployment
       console.log(depSteps)
-      console.log(depSteps[0].requirement)
       let startDate = depSteps[0].requirement.requirement_list.deployment.start_date
       //organizes based on step priority, priority number 1 last in line so that it gets assigned a start date last and is put in the front of the dates
       let adjSteps = []
@@ -128,12 +141,14 @@ const DpcHomePage = () => {
 
 
 
-  return (
+  return ( loading ? <p>LOADING</p> :
     <div className="container">
+      <h1>All Deployment Location Details</h1>
       <OverviewTable dates={stepDates}/>
       <TaskCalendar dates={stepDates}/>
       <LocList data={locations}/>
       <DepList data={deployers}/>
+      <LocCRUD/>
     </div>
   );
 };

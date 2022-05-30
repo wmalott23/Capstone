@@ -152,7 +152,7 @@ const LocationPage = () => {
         <h1>{location.name} Details</h1>
         <OverviewTable dates={stepDates}/>
         <TaskCalendar dates={stepDates}/>
-        <DeploymentCD/>
+        <DeploymentCD locationId={locationId}/>
     </div>
      );
 }

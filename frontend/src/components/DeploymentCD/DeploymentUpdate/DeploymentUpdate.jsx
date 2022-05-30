@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Modal } from 'react-bootstrap';
 
-const DeploymentUpdate = () => {
+const DeploymentUpdate = ({locationId}) => {
     const [id, setId] = useState(0);
     const [name, setName] = useState('');
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
-    const [locationId, setLocationId] = useState(0);
 
 
     function handleSubmit(event) {
@@ -53,13 +52,10 @@ const DeploymentUpdate = () => {
                         <textarea className="form-control form-control" type='text' placeholder="Name:" onChange={(event) => setName(event.target.value)}></textarea>
                     </div>
                     <div className="d-flex flex-column align-content-end p-1">
-                        <textarea className="form-control form-control" type='text' placeholder="Start Date:" onChange={(event) => setStartDate(event.target.value)}></textarea>
+                        <textarea className="form-control form-control" type='text' placeholder="Start Date: (YYYY-MM-DD)" onChange={(event) => setStartDate(event.target.value)}></textarea>
                     </div>
                     <div className="d-flex flex-column align-content-end p-1">
-                        <textarea className="form-control form-control" type='text' placeholder="End Date:" onChange={(event) => setEndDate(event.target.value)}></textarea>
-                    </div>
-                    <div className="d-flex flex-column align-content-end p-1">
-                        <textarea className="form-control form-control" type='text' placeholder="Location Id:" onChange={(event) => setLocationId(event.target.value)}></textarea>
+                        <textarea className="form-control form-control" type='text' placeholder="End Date: (YYYY-MM-DD)" onChange={(event) => setEndDate(event.target.value)}></textarea>
                     </div>
                     <button className="btn bg-success col-md-5 align-self-center text-white" onClick={handleClose}>Submit</button>
                 </form>

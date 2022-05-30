@@ -3,13 +3,13 @@ import DeploymentCreate from './DeploymentCreate/DeploymentCreate';
 import DeploymentDelete from './DeploymentDelete/DeploymentDelete';
 import DeploymentUpdate from './DeploymentUpdate/DeploymentUpdate';
 
-const DeploymentCD = (props) => {
+const DeploymentCD = ({locationId}) => {
 
 
     return ( 
     <div className="container">
-      <DeploymentCreate/>
-      <DeploymentUpdate/>
+      <DeploymentCreate locationId={locationId}/>
+      <DeploymentUpdate locationId={locationId}/>
       <DeploymentDelete/>
     </div>
      );
