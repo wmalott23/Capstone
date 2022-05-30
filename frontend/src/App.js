@@ -37,10 +37,10 @@ function App() {
         <Route path="/dep/" element={<PrivateRoute><DepHomePage /></PrivateRoute>}/>
         <Route path="/dpc" element={<PrivateRoute><DpcHomePage /></PrivateRoute>}/>
         <Route path="/" element={<PrivateRoute><HomePage /></PrivateRoute>}/>
-        <Route path="/dpc/loc/:locationId" element={<PrivateRoute><LocationPage /></PrivateRoute>} />
+        <Route path="/dpc/loc/:locationId/" element={<PrivateRoute><LocationPage /></PrivateRoute>} />
         <Route path="/dpc/register" element={<PrivateRoute><DpcRegisterPage /></PrivateRoute>} />
         <Route path="/dpc/req" element={<PrivateRoute><DpcReqPage /></PrivateRoute>} />
-        <Route path="/dpc/dep" element={<PrivateRoute><DpcDepPage /></PrivateRoute>} />
+        <Route path="/dpc/dep/:deployerId/" element={<PrivateRoute><DpcDepPage /></PrivateRoute>} />
         <Route path="/dep/register" element={<PrivateRoute><DepRegisterPage /></PrivateRoute>} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />

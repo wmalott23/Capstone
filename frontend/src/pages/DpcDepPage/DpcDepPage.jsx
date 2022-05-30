@@ -1,200 +1,111 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import DeployerUpdate from '../../components/DeployerUpdate/DeployerUpdate';
+import OverviewTable from '../../components/OverviewTable/OverviewTable';
+import TaskCalendar from '../../components/TaskCalendar/TaskCalendar';
 
 const DpcDepPage = () => {
-    const [deploymentId, setDeploymentId] = useState(0)
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
-    const [email, setEmail] = useState('')
-    const [address, setAddress] = useState('')
-    const [phoneNumber, setPhoneNumber] = useState('')
-    const [cacExp, setCacExp] = useState('')
-    const [passNumber, setPassNumber] = useState('')
-    const [passExp, setPassExp] = useState('')
-    const [visaCountry, setVisaCountry] = useState('')
-    const [visaId, setVisaId] = useState('')
-    const [visaExp, setVisaExp] = useState('')
-    const [cbtListId, setCbtListId] = useState(0)
-    const [medReq, setMedReq] = useState('')
-    const [medSched, setMedSched] = useState('')
-    const [medExp, setMedExp] = useState('')
-    const [dentSched, setDentSched] = useState('')
-    const [dentExp, setDentExp] = useState('')
-    const [loaEnd, setLoaEnd] = useState('')
-    const [isServerError, setIsServerError] = useState(false);
 
-    const handleSubmit = async () => {
-        const BASE_URL = "http://127.0.0.1:8000/api";
-        try {
-          let finalData = {
-            deployment_id: deploymentId,
-            first_name: firstName,
-            last_name: lastName,
-            email: email,
-            address: address,
-            phone_number: phoneNumber,
-            cac_exp: cacExp,
-            pass_num: passNumber,
-            pass_exp: passExp,
-            visa_name: visaCountry,
-            visa_id: visaId,
-            visa_exp: visaExp,
-            cbts: cbtListId,
-            med_requested: medReq,
-            med_scheduled: medSched,
-            med_exp: medExp,
-            dent_scheduled: dentSched,
-            dent_exp: dentExp,
-            loa_exp: loaEnd
-          };
-          let response = await axios.post(`${BASE_URL}/deployers/reg/`, finalData);
-          if (response.status === 201) {
-            console.log("Successful created Deployer!");
-            setIsServerError(false);
-          }
-        } catch (error) {
-          console.log(error.response.data);
+
+  
+    const {deployerId} = useParams();
+    const [loading, setLoading] = useState(true);
+    const [depPi, setDepPi] = useState({});
+    const [steps, setSteps] = useState([]);
+    const [stepDates, setStepDates] = useState([]);
+
+    useEffect(() => {
+      fetchDepPi()
+    }, [])
+
+    useEffect(() => {
+      fetchSteps()
+    }, [depPi])
+
+    useEffect(() => {
+      let mounted = true
+      createStepTimeline().then(() => {
+        if(mounted) {
+        }})
+      return function cleanup() {
+          mounted = false
+          setLoading(false)
+      }
+    }, [steps])
+
+
+    const fetchDepPi = async () => {
+      try {
+        let response = await axios.get(`http://127.0.0.1:8000/api/deployers/${deployerId}/`)
+        setDepPi(response.data)
+      } catch (error) {
+        console.log(error.message)
+      }
+    }
+
+    const fetchSteps = async () => {
+      try {
+        console.log(depPi)
+        let response = await axios.get(`http://127.0.0.1:8000/api/steps/req/${depPi.deployment.id}/`)
+        setSteps(response.data)
+      } catch (error) {
+        console.log(error.message)
+      }
+    }
+
+    //takes the list of steps in a given deployment and spits out steps in a format acceptable to the overviewTable and taskCalendar
+  const createStepTimeline = async () => {
+    let startDates = []
+    let startDates2 = []
+    let endDates = []
+    let startDate = steps[0].requirement.requirement_list.deployment.start_date
+    //organizes based on step priority, priority number 1 last in line so that it gets assigned a start date last and is put in the front of the dates
+    let adjSteps = []
+    for(let i=steps.length; i>0; i--){
+      for(let l=0; l<steps.length; l++){
+        if(steps[l].priority === i){
+          adjSteps.push(steps[l])
         }
-      };
+    }}
+    console.log(steps)
+    //calculates start dates (from last step) based on length, counting backwards from the deployment start date
+    var n = Date.parse(startDate)
+    var d = new Date(n)
+    let e = new Date(d).toISOString()
+    for(let i=0; i<adjSteps.length; i++){
+      let adjLen = adjSteps[i].len
+      let startInMilli = d.setDate(d.getDate()-adjLen)
+      let start = new Date(startInMilli).toISOString()
+      let start2 = new Date(start)
+      startDates.push(start)
+      startDates2.push(start2)
+    }
+    //calculates end dates (from last step) (subtracting one from start date in last step to get end date in second to last step)
+    endDates.push(e)
+    for(let i=0; i<adjSteps.length-1; i++){
+      let endMinusOne = startDates2[i].setDate(startDates2[i].getDate()-1)
+      let newD = new Date(endMinusOne).toISOString()
+      endDates.push(newD)
+    }
+    //pulls titles from each step
+    let stepTitles = adjSteps.map(el => {
+      return `${depPi.last_name} ${el.requirement.name} ${el.name}`
+    })
+    //assigns startdate, enddate, and title into a list of objects (one for each step)
+    let stepObjects = []
+    for(let i=0; i<startDates.length; i++){
+      stepObjects.push({startDate: startDates[i], endDate: endDates[i], title: stepTitles[i]})
+    }
+    //returns list of objects
+    setStepDates(stepObjects)
+  }
 
-    return ( 
-        <div className="container">
-      <form className="form" onSubmit={handleSubmit}>
-        <label>
-          Deployment ID:{" "}
-          <input
-            type="text"
-            onChange={(event) => setDeploymentId(event.target.value)}
-          />
-        </label>
-        <label>
-          First name:{" "}
-          <input
-            type="text"
-            onChange={(event) => setFirstName(event.target.value)}
-          />
-        </label>
-        <label>
-          Last Name:{" "}
-          <input
-            type="text"
-            onChange={(event) => setLastName(event.target.value)}
-          />
-        </label>
-        <label>
-          Email:{" "}
-          <input
-            type="text"
-            onChange={(event) => setEmail(event.target.value)}
-          />
-        </label>
-        <label>
-          Address:{" "}
-          <input
-            type="text"
-            onChange={(event) => setAddress(event.target.value)}
-          />
-        </label>
-        <label>
-          Phone Number:{" "}
-          <input
-            type="text"
-            onChange={(event) => setPhoneNumber(event.target.value)}
-          />
-        </label>
-        <label>
-          CAC Expiration:{" "}
-          <input
-            type="text"
-            onChange={(event) => setCacExp(event.target.value)}
-          />
-        </label>
-        <label>
-          Passport Number:{" "}
-          <input
-            type="text"
-            onChange={(event) => setPassNumber(event.target.value)}
-          />
-        </label>
-        <label>
-          Passport Expiration:{" "}
-          <input
-            type="text"
-            onChange={(event) => setPassExp(event.target.value)}
-          />
-        </label>
-        <label>
-          Visa Country:{" "}
-          <input
-            type="text"
-            onChange={(event) => setVisaCountry(event.target.value)}
-          />
-        </label>
-        <label>
-          visa Id:{" "}
-          <input
-            type="text"
-            onChange={(event) => setVisaId(event.target.value)}
-          />
-        </label>
-        <label>
-          Visa Expiration:{" "}
-          <input
-            type="text"
-            onChange={(event) => setVisaExp(event.target.value)}
-          />
-        </label>
-        <label>
-          Cbt List Id:{" "}
-          <input
-            type="int"
-            onChange={(event) => setCbtListId(event.target.value)}
-          />
-        </label>
-        <label>
-          Medical Requested:{" "}
-          <input
-            type="text"
-            onChange={(event) => setMedReq(event.target.value)}
-          />
-        </label>
-        <label>
-          Medical Scheduled:{" "}
-          <input
-            type="text"
-            onChange={(event) => setMedSched(event.target.value)}
-          />
-        </label>
-        <label>
-          Medical Expiration:{" "}
-          <input
-            type="text"
-            onChange={(event) => setMedExp(event.target.value)}
-          />
-        </label>
-        <label>
-          Dental Scheduled:{" "}
-          <input
-            type="text"
-            onChange={(event) => setDentSched(event.target.value)}
-          />
-        </label>
-        <label>
-          Dental Expiration:{" "}
-          <input
-            type="text"
-            onChange={(event) => setDentExp(event.target.value)}
-          />
-        </label>
-        <label>
-          Loa Expiration:{" "}
-          <input
-            type="text"
-            onChange={(event) => setLoaEnd(event.target.value)}
-          />
-        </label>
-        <button>Create Deployer!</button>
-      </form>
+    return ( loading ? <p>LOADING</p> :
+    <div>
+      <OverviewTable dates={stepDates}/>
+      <TaskCalendar dates={stepDates}/>
+      <DeployerUpdate/>
     </div>
      );
 }

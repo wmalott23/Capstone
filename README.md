@@ -11,13 +11,13 @@ details at a later time. -->
 (10 points): As a developer, I want to have an aesthetically pleasing and intuitive 
 user interface/user experience (UI/UX) with all features of the application stylized.
 
-(5 points): As a Deployment Coordinator, I would like to create a deployment and 
+<!-- (5 points): As a Deployment Coordinator, I would like to create a deployment and 
 add tasks to it, indicating timeline and priority, so that I can create a checklist of 
-action items for a Deployer to follow.
+action items for a Deployer to follow. -->
 
-(2.5 points): As a Deployment Coordinator, I would like to assign Deployers to 
+<!-- (2.5 points): As a Deployment Coordinator, I would like to assign Deployers to 
 deployments and have the ability to view, update, and delete a Deployer from a 
-deployment.
+deployment. -->
 
 (10 points): As a Deployment Coordinator, I want to be able to view a data 
 visualization timeline for each Deployer per deployment to accurately represent 

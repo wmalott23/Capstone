@@ -91,10 +91,8 @@ const DepHomePage = () => {
 
   return (
     <div className="container">
-      <div className="d-flex flex-row">
       <OverviewTable dates={stepDates}/>
       <TaskCalendar dates={stepDates}/>
-      </div>
       <PIDisplay data={depPi}/>
     </div>
   );
