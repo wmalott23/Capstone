@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Card, CardGroup, ListGroup } from 'react-bootstrap';
+import { Card, Row, Col, ListGroup, ListGroupItem } from 'react-bootstrap';
 
 const ReqBreakOut = ({steps}) => {
     const [reqsList, setReqsList] = useState([])
@@ -78,30 +78,47 @@ const ReqBreakOut = ({steps}) => {
             {loading ? <p>LOADING</p> : 
             reqsList && reqsList.map((el, index) => {
                 let reqsByListMap = reqsByList[index].map((el) => {
-                    return (`Requirement Id: ${el.id} Requirement Title: ${el.name}`)})
+                    return (`Requirement Id: ${el.id} Requirement Title: ${el.name}`
+                    
+                    )})
                 let distinctReqsByList = [...new Set(reqsByListMap)]
                 let distinctReqsByListDivs = distinctReqsByList.map((el) => {return(<div>{el}</div>)})
                 let reqsByListSpread = [...distinctReqsByListDivs]
                 let stepsByListMap = stepsByList[index].map((el) => {
-                    return (<ListGroup.Item>
-                                <p>{`Step Id: ${el.id}`}</p> 
-                                <p>{`Step Title: ${el.name}`}</p>
-                                <p>{`Part of Requirement: ${el.requirement.name}`}</p>
+                    return (<ListGroup.Item className="m-1">
+                                <h6>Step Id:</h6> 
+                                <h6>{el.id}</h6> 
+                                <h6>Step Name:</h6>
+                                <h6>{el.name}</h6>
+                                <h6>Priority:</h6>
+                                <h6>{el.priority}</h6>
+                                <h6>Description:</h6>
+                                <h6>{el.description}</h6>
+                                <h6>Length:</h6>
+                                <h6>{el.len}</h6>
+                                <h6>Part of Requirement:</h6>
+                                <h6>{el.requirement.name}</h6>
                             </ListGroup.Item>)})
                 let stepsByListSpread =[...stepsByListMap]
                 return (
-                    <CardGroup>
-                        <Card bg="primary" text="white" className="mb-4" style={{ width: '18rem' }} key={index}>
-                            <Card.Title>
-                                <p>{`Requirement List ID: ${el.id}
-                                    Requirement List Title: ${el.name}\n`}</p>
+                    <Row xs={1} md={2} className="g-4">
+                        <Card bg="primary" text="white" className="m-4" style={{ width: '18rem' }} key={index}>
+                            <Card.Title className="m-1">
+                                   <h4>Requirement List Title:</h4>
+                                   <h6>{el.name}</h6>
+                                   <h4>Requirement List ID:</h4> 
+                                   <h6>{el.id}</h6> 
                             </Card.Title>
-                            <Card.Text>
+                            <Card.Text> Requirements:
+                            </Card.Text>
+                            <ListGroupItem>
                                 {reqsByListSpread}
+                            </ListGroupItem>
+                            <Card.Text> Steps:
                             </Card.Text>
                                 {stepsByListSpread}
                         </Card>
-                    </CardGroup>
+                    </Row>
                 )
             })}
         </div>

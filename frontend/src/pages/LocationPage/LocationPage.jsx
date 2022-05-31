@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import useAuth from "../../hooks/useAuth";
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 //Importing Components
@@ -153,6 +154,9 @@ const LocationPage = () => {
         <OverviewTable dates={stepDates}/>
         <TaskCalendar dates={stepDates}/>
         <DeploymentCD locationId={locationId}/>
+        <Link to="/dpc/" className="text-white" style={{ textDecoration: 'none' }}>
+          <button className="btn bg-primary p-1 text-white m-1">Return to DPC Overview</button>
+        </Link>
     </div>
      );
 }

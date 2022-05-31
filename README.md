@@ -8,8 +8,8 @@ application experience depending on my role.
 create a profile on the application with relevant details so that I can view those 
 details at a later time. -->
 
-(10 points): As a developer, I want to have an aesthetically pleasing and intuitive 
-user interface/user experience (UI/UX) with all features of the application stylized.
+<!-- (10 points): As a developer, I want to have an aesthetically pleasing and intuitive 
+user interface/user experience (UI/UX) with all features of the application stylized. -->
 
 <!-- (5 points): As a Deployment Coordinator, I would like to create a deployment and 
 add tasks to it, indicating timeline and priority, so that I can create a checklist of 
@@ -19,8 +19,8 @@ action items for a Deployer to follow. -->
 deployments and have the ability to view, update, and delete a Deployer from a 
 deployment. -->
 
-(10 points): As a Deployment Coordinator, I want to be able to view a data 
-visualization timeline for each Deployer per deployment to accurately represent 
+<!-- (10 points): As a Deployment Coordinator, I want to be able to view a data 
+visualization timeline for each Deployer per deployment to accurately represent  -->
 the estimated amount of time it would take to be deployment ready based on that
 Deployer’s current deployment status (Whether they have a visa, if they need 
 more training, etc)

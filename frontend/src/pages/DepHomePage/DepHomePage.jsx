@@ -103,7 +103,7 @@ const DepHomePage = () => {
 
 
   return (
-    user.isDeployer ? <div className="container">
+    user.isDeployer ? <div className="container d-flex flex-column align-items-center" >
       <OverviewTable dates={stepDates}/>
       <TaskCalendar dates={stepDates}/>
       <PIDisplay data={depPi}/>

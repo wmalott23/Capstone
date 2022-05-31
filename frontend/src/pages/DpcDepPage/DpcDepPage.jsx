@@ -4,6 +4,7 @@ import axios from 'axios';
 import DeployerUpdate from '../../components/DeployerUpdate/DeployerUpdate';
 import OverviewTable from '../../components/OverviewTable/OverviewTable';
 import TaskCalendar from '../../components/TaskCalendar/TaskCalendar';
+import { Link } from 'react-router-dom';
 
 const DpcDepPage = () => {
 
@@ -102,10 +103,14 @@ const DpcDepPage = () => {
   }
 
     return ( loading ? <p>LOADING</p> :
-    <div>
+    <div className="container d-flex flex-column align-items-center">
+      <h2>{`${depPi.first_name} ${depPi.last_name} Overview`}</h2>
       <OverviewTable dates={stepDates}/>
       <TaskCalendar dates={stepDates}/>
       <DeployerUpdate/>
+      <Link to="/dpc/" className="text-white" style={{ textDecoration: 'none' }}>
+      <button className="btn bg-primary p-1 text-white m-1">Return to DPC Overview</button>
+      </Link>
     </div>
      );
 }

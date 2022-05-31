@@ -8,7 +8,7 @@ const OverviewTable = ({dates}) => {
     const schedulerData = dates
 
     return ( 
-        <Paper>
+        <Paper className="m-4 border border-primary rounded">
             <Scheduler
             data={schedulerData}
             >

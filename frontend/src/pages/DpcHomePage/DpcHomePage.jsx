@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import { Table } from 'react-bootstrap';
+import { Link } from "react-router-dom";
 
 //Importing components
 import OverviewTable from "../../components/OverviewTable/OverviewTable";
@@ -147,19 +148,22 @@ const DpcHomePage = () => {
     <div className="container d-flex flex-column align-items-center">
       <h1>All Deployment Location Details</h1>
       <OverviewTable dates={stepDates}/>
-      <TaskCalendar dates={stepDates}/>
-      <Table className="m-4 border border-dark rounded" style={{ width: '8rem' }}>
+      <TaskCalendar dates={stepDates} className="m-4 border border-primary"/>
+      <Table className="m-4 border border-primary rounded" style={{ width: '8rem' }}>
         <tr>
           Location List
         </tr>
         <LocList data={locations}/>
       </Table>
-      <Table className="mb-4 border border-dark" style={{ width: '8rem' }}>
+      <Table className="mb-4 border border-primary" style={{ width: '8rem' }}>
         <tr>
           Deployer List
         </tr>
         <DepList data={deployers}/>
       </Table>
+      <Link to="/dpc/req/" className="text-white" style={{ textDecoration: 'none' }}>
+      <button className="btn bg-primary p-1 text-white m-1">Go to Requirement Page</button>
+      </Link>
       <LocCRUD/>
     </div>
   );

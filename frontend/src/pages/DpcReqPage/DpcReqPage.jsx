@@ -36,11 +36,15 @@ const DepDetailsPage = () => {
       }
 
     return ( loading ? <p>LOADING</p> :
-    <div className="container">
-        <ReqBreakOut steps={steps}/>
-        <ReqListCRUD/>
-        <ReqCRUD/>
-        <StepsCRUD/>
+    <div className="container d-flex flex-column p-3 col-md-12">
+        <div className="left col-md-6 justify-content-center">
+            <ReqBreakOut steps={steps}/>
+        </div>
+        <div className="col-md-5 m-6 align-self-end position-fixed">
+            <ReqListCRUD/>
+            <ReqCRUD/>
+            <StepsCRUD/>
+        </div>
     </div>     
     );
 }
