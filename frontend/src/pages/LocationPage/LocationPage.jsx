@@ -10,6 +10,8 @@ import OverviewTable from '../../components/OverviewTable/OverviewTable';
 import DeploymentCD from '../../components/DeploymentCD/DeploymentCD';
 import TaskCalendar from '../../components/TaskCalendar/TaskCalendar';
 import DepCRUD from '../../components/DepCRUD/DepCRUD'
+import { Table } from 'react-bootstrap';
+import DeploymentList from '../../components/DeploymentList/DeploymentList';
 
 
 const LocationPage = () => {
@@ -18,6 +20,7 @@ const LocationPage = () => {
     const [user, token] = useAuth();
     const [allDeps, setAllDeps] = useState([])
     const [location, setLocation] = useState({})
+    const [deployments, setDeployments] = useState([])
     const [deployers, setDeployers] = useState([])
     const [stepDates, setStepDates] = useState([])
     const [loading, setLoading] = useState(true)
@@ -87,13 +90,13 @@ const LocationPage = () => {
           depList.push(allDeps[i])
         }
       }
-      let deployments = depList
+      let deps = depList
       //for every deployment in deployments
-      for(let j=0; j<deployments.length; j++){
+      for(let j=0; j<deps.length; j++){
         let startDates = []
         let startDates2 = []
         let endDates = []
-        let depId = deployments[j].id
+        let depId = deps[j].id
         let lastName
         // gets all steps for this deployment
         for(let i=0; i<steps.length; i++){
@@ -147,6 +150,7 @@ const LocationPage = () => {
         }}
       //returns list of objects
       setStepDates(stepObjects)
+      setDeployments(deps)
     }
 
     return ( loading ? <p>LOADING</p> :
@@ -154,6 +158,19 @@ const LocationPage = () => {
         <h1>{location.name} Details</h1>
         <OverviewTable dates={stepDates}/>
         <TaskCalendar dates={stepDates}/>
+        <Table>
+          <thead>
+            <tr>
+              <th>Deployment ID</th>
+              <th>Position Title</th>
+              <th>Deployment Start Date</th>
+              <th>Deployment End Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <DeploymentList data={deployments}/>
+          </tbody>
+        </Table>
         <DeploymentCD locationId={locationId}/>
         <DepCRUD/>
         <Link to="/dpc/" className="text-white" style={{ textDecoration: 'none' }}>

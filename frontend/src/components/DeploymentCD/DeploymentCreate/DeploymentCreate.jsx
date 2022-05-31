@@ -47,10 +47,10 @@ const DeploymentCreate = ({locationId}) => {
                         <textarea className="form-control form-control" type='text' placeholder="Name:" onChange={(event) => setName(event.target.value)}></textarea>
                     </div>
                     <div className="d-flex flex-column align-content-end p-1">
-                        <textarea className="form-control form-control" type='text' placeholder="Start Date:" onChange={(event) => setStartDate(event.target.value)}></textarea>
+                        <textarea className="form-control form-control" type='text' placeholder="Start Date: (YYYY-MM-DD)" onChange={(event) => setStartDate(event.target.value)}></textarea>
                     </div>
                     <div className="d-flex flex-column align-content-end p-1">
-                        <textarea className="form-control form-control" type='text' placeholder="End Date:" onChange={(event) => setEndDate(event.target.value)}></textarea>
+                        <textarea className="form-control form-control" type='text' placeholder="End Date: (YYYY-MM-DD)" onChange={(event) => setEndDate(event.target.value)}></textarea>
                     </div>
                     <button className="btn bg-success col-md-5 align-self-center text-white" onClick={handleClose}>Submit</button>
                 </form>

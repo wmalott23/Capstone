@@ -102,12 +102,12 @@ const DepHomePage = () => {
   }
 
 
-  return (
-    user.isDeployer ? <div className="container d-flex flex-column align-items-center" >
+  return (loading ? <p>Screen is Loading / Your Deployer may not have any steps assigned to them.</p> : 
+    <div className="container">
       <OverviewTable dates={stepDates}/>
       <TaskCalendar dates={stepDates}/>
       <PIDisplay data={depPi}/>
-    </div>: <h1> You must be a Deployer to view this page </h1>
+    </div>
   );
 };
 

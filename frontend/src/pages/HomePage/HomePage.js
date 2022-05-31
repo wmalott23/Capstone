@@ -12,15 +12,7 @@ const HomePage = () => {
 
   useEffect(() => {
   });
-  return (user.isDeployer ? 
-    <div className="container">
-      <h1>Admin Page for {user.username}!</h1>
-      <Link to="/dep/" className="text-white" style={{ textDecoration: 'none' }}>
-      <button className="btn bg-primary p-1 text-white m-1">View Your Home Page!
-      </button>
-      </Link>
-    </div>
-    :
+  return (!user.isDeployer ? 
     <div className="container">
       <h1>Admin Page for {user.username}!</h1>
       <Link to="/dpc/register" className="text-white" style={{ textDecoration: 'none' }}>
@@ -35,6 +27,14 @@ const HomePage = () => {
       <button className="btn bg-primary p-1 text-white m-1">
         Click to register a Deployer!
       </button></Link>
+    </div>
+    :
+    <div className="container">
+      <h1>Admin Page for {user.username}!</h1>
+      <Link to="/dep/" className="text-white" style={{ textDecoration: 'none' }}>
+      <button className="btn bg-primary p-1 text-white m-1">View Your Home Page!
+      </button>
+      </Link>
     </div>
   );
 };

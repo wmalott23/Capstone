@@ -14,9 +14,11 @@ const DepDetailsPage = () => {
     const [user, token] = useAuth();
     const [steps, setSteps] = useState([])
     const [loading, setLoading] = useState(true)
+    const [reqs, setReqs] = useState([])
 
     useEffect(() => {
         let mounted = true
+        fetchReqs()
         fetchSteps().then(() => {
             if(mounted) {
                 setLoading(false)
@@ -35,10 +37,19 @@ const DepDetailsPage = () => {
         }
       }
 
+      const fetchReqs = async () => {
+          try {
+              let response = await axios.get(`http://127.0.0.1:8000/api/requirements/`)
+              setReqs(response.data)
+            } catch (error) {
+              console.log(error.message)
+            }
+          }
+
     return ( loading ? <p>LOADING</p> :
     <div className="container d-flex flex-column p-3 col-md-12">
         <div className="left col-md-6 justify-content-center">
-            <ReqBreakOut steps={steps}/>
+            <ReqBreakOut steps={steps} reqs={reqs}/>
         </div>
         <div className="col-md-5 m-6 align-self-end position-fixed">
             <ReqListCRUD/>

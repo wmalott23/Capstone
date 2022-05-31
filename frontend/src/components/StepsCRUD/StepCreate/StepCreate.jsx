@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import useAuth from '../../../hooks/useAuth';
 import axios from 'axios';
 import { Modal } from 'react-bootstrap';
 
@@ -9,6 +10,7 @@ const StepCreate = (props) => {
     const [priority, setPriority] = useState(0);
     const [description, setDescription] = useState('');
     const [len, setLen] = useState(0);
+    const [user, token] = useAuth();
 
     function handleSubmit(event) {
         event.preventDefault()
@@ -23,10 +25,13 @@ const StepCreate = (props) => {
     }
 
     async function postStep(step){
-        let response = await axios.post(`http://127.0.0.1:8000/api/steps/`, step);
+        try{
+        let response = await axios.post(`http://127.0.0.1:8000/api/steps/post/`, step);
         if(response.status === 201){
             window.location.reload(false);
-        }
+        }} catch (error) {
+        console.log(error.message);
+    }
       }
 
     //Modal Logic

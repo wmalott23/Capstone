@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Card, Row, Col, ListGroup, ListGroupItem } from 'react-bootstrap';
 
-const ReqBreakOut = ({steps}) => {
+const ReqBreakOut = ({steps, reqs}) => {
     const [reqsList, setReqsList] = useState([])
-    const [reqs, setReqs] = useState([])
     const [reqsByList, setReqsByList] = useState([])
     const [stepsByList, setStepsByList] = useState([])
     const [loading, setLoading] = useState(true)
@@ -21,7 +20,6 @@ const ReqBreakOut = ({steps}) => {
     }, [steps])
 
     useEffect(() => {
-        fetchReqs()
         fetchReqsByList()
         fetchStepsByList()
     }, [reqsList])
@@ -36,13 +34,6 @@ const ReqBreakOut = ({steps}) => {
           }
         }
 
-    const fetchReqs = () => {
-        let tempReqs = []
-        steps.map((el) => {
-            tempReqs.push(el.requirement)
-        })
-        setReqs(tempReqs)
-        }
     const fetchReqsByList = () => {
         let reqsListToBePutIntoList = []
         let reqsByListList = []
@@ -62,8 +53,9 @@ const ReqBreakOut = ({steps}) => {
         let stepsListToBePutIntoList = []
         let stepsByListList = []
         reqsList.map((el) => {
-            for(let i=0; i<reqs.length; i++)
+            for(let i=0; i<steps.length; i++)
                 if(steps[i].requirement.requirement_list.id === el.id){
+                    console.log(steps[i].requirement.requirement_list.id)
                     stepsListToBePutIntoList.push(steps[i])
                 }
             stepsByListList.push(stepsListToBePutIntoList)
