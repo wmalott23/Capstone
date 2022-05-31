@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
+import { Table } from 'react-bootstrap';
 
 //Importing components
 import OverviewTable from "../../components/OverviewTable/OverviewTable";
@@ -143,12 +144,22 @@ const DpcHomePage = () => {
 
 
   return ( loading ? <p>LOADING</p> :
-    <div className="container">
+    <div className="container d-flex flex-column align-items-center">
       <h1>All Deployment Location Details</h1>
       <OverviewTable dates={stepDates}/>
       <TaskCalendar dates={stepDates}/>
-      <LocList data={locations}/>
-      <DepList data={deployers}/>
+      <Table className="m-4 border border-dark rounded" style={{ width: '8rem' }}>
+        <tr>
+          Location List
+        </tr>
+        <LocList data={locations}/>
+      </Table>
+      <Table className="mb-4 border border-dark" style={{ width: '8rem' }}>
+        <tr>
+          Deployer List
+        </tr>
+        <DepList data={deployers}/>
+      </Table>
       <LocCRUD/>
     </div>
   );

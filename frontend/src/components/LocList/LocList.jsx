@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 const LocList = ({data}) => {
@@ -8,11 +9,11 @@ const LocList = ({data}) => {
         data.map((loc, index) => {
             let url = `loc/${loc.id}`
             return(
-                <div key={index}>
-                <Link to={url}>
-                    {loc.name}
-                </Link>
-                </div>
+                <tr key={index}>
+                    <Link to={url}>
+                        {loc.name}
+                    </Link>
+                </tr>
         )})
      );
 }

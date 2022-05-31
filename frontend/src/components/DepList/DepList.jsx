@@ -8,11 +8,11 @@ const DepList = ({data}) => {
         data.map((el, index) => {
             let url = `dep/${el.id}`
             return (
-                <div key={index}>
+                <tr key={index}>
                 <Link to={url}>
                     {el.last_name}
                 </Link>
-                </div>
+                </tr>
             )
         })
      );

@@ -8,7 +8,7 @@ const LocCRUD = (props) => {
     
 
   return (
-    <div className="container">
+    <div className="d-flex flex-row justify-content-center">
         <LocCreate/>
         <LocUpdate/>
         <LocDelete/>
