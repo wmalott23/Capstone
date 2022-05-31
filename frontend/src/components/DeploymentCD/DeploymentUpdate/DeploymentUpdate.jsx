@@ -36,7 +36,7 @@ const DeploymentUpdate = ({locationId}) => {
 
     return ( 
         <div>
-        <button className="btn bg-success text-white m-1" onClick={handleShow}>
+        <button className="btn bg-primary p-1 text-white m-1" onClick={handleShow}>
             Update Deployment
         </button>
         <Modal show={show} onHide={handleClose}>
