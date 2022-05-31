@@ -161,10 +161,10 @@ const DpcHomePage = () => {
         </tr>
         <DepList data={deployers}/>
       </Table>
+      <LocCRUD/>
       <Link to="/dpc/req/" className="text-white" style={{ textDecoration: 'none' }}>
       <button className="btn bg-primary p-1 text-white m-1">Go to Requirement Page</button>
       </Link>
-      <LocCRUD/>
     </div>
   );
 };

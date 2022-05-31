@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import OverviewTable from '../../components/OverviewTable/OverviewTable';
 import DeploymentCD from '../../components/DeploymentCD/DeploymentCD';
 import TaskCalendar from '../../components/TaskCalendar/TaskCalendar';
+import DepCRUD from '../../components/DepCRUD/DepCRUD'
 
 
 const LocationPage = () => {
@@ -154,6 +155,7 @@ const LocationPage = () => {
         <OverviewTable dates={stepDates}/>
         <TaskCalendar dates={stepDates}/>
         <DeploymentCD locationId={locationId}/>
+        <DepCRUD/>
         <Link to="/dpc/" className="text-white" style={{ textDecoration: 'none' }}>
           <button className="btn bg-primary p-1 text-white m-1">Return to DPC Overview</button>
         </Link>
