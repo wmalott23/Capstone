@@ -11,7 +11,8 @@ const DpcRegisterPage = () => {
     firstName: "",
     lastName: "",
     isDeployer: false,
-    isDpc: true
+    isDpc: true,
+    depId: ""
   };
   const [formData, handleInputChange, handleSubmit] = useCustomForm(
     defaultValues,

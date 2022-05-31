@@ -6,6 +6,7 @@ import { Scheduler, DayView, Appointments } from '@devexpress/dx-react-scheduler
 const TaskCalendar = ({dates}) => {
 
     const today = new Date().toISOString()
+    const thirtyMinutesInMillis = 30*60*1000
     const todaySchedule = []
     const currentDate = today;
     for(let i=0; i<dates.length; i++){
@@ -29,8 +30,8 @@ const TaskCalendar = ({dates}) => {
             currentDate={currentDate}
           />
           <DayView
-            startDayHour={9}
-            endDayHour={14}
+            startDayHour={6}
+            endDayHour={23}
           />
           <Appointments />
         </Scheduler>

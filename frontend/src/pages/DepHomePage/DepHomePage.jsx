@@ -13,14 +13,25 @@ const DepHomePage = () => {
   const [depPi, setDepPi] = useState({})
   const [steps, setSteps] = useState([])
   const [stepDates, setStepDates] = useState([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     fetchDepPi()
   }, []);
 
-  useEffect(async () => {
-    fetchSteps().then(createStepTimeline())
+  useEffect(() => {
+    fetchSteps()
   }, [depPi]);
+
+  useEffect(async () => {
+    let mounted=true
+    createStepTimeline().then(() => {
+      if(mounted) {
+      }})
+    return function cleanup() {
+        mounted = false
+        setLoading(false)}
+  }, [steps]);
 
   //gets deployer personal information to display in the page
   const fetchDepPi = async () => {
@@ -46,7 +57,8 @@ const DepHomePage = () => {
     let startDates = []
     let startDates2 = []
     let endDates = []
-    let startDate = steps[0].requirement.requirement_list.deployment.start_date
+    console.log(depPi)
+    let startDate = depPi.deployment.start_date
     //organizes based on step priority, priority number 1 last in line so that it gets assigned a start date last and is put in the front of the dates
     let adjSteps = []
     for(let i=steps.length; i>0; i--){
@@ -85,16 +97,17 @@ const DepHomePage = () => {
       stepObjects.push({startDate: startDates[i], endDate: endDates[i], title: stepTitles[i]})
     }
     //returns list of objects
+    console.log(stepObjects)
     setStepDates(stepObjects)
   }
 
 
   return (
-    <div className="container">
+    user.isDeployer ? <div className="container">
       <OverviewTable dates={stepDates}/>
       <TaskCalendar dates={stepDates}/>
       <PIDisplay data={depPi}/>
-    </div>
+    </div>: <h1> You must be a Deployer to view this page </h1>
   );
 };
 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Modal } from 'react-bootstrap';
 
 const DeployerUpdate = (props) => {
 
@@ -57,144 +58,161 @@ const DeployerUpdate = (props) => {
           console.log(error.response.data);
         }
       };
+
+    //Modal Logic
+
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
     return ( 
     <div className="container">
-      <form className="form" onSubmit={handleSubmit}>
-        <label>
-          Deployment ID:{" "}
-          <input
-            type="text"
-            onChange={(event) => setDeploymentId(event.target.value)}
-          />
-        </label>
-        <label>
-          First name:{" "}
-          <input
-            type="text"
-            onChange={(event) => setFirstName(event.target.value)}
-          />
-        </label>
-        <label>
-          Last Name:{" "}
-          <input
-            type="text"
-            onChange={(event) => setLastName(event.target.value)}
-          />
-        </label>
-        <label>
-          Email:{" "}
-          <input
-            type="text"
-            onChange={(event) => setEmail(event.target.value)}
-          />
-        </label>
-        <label>
-          Address:{" "}
-          <input
-            type="text"
-            onChange={(event) => setAddress(event.target.value)}
-          />
-        </label>
-        <label>
-          Phone Number:{" "}
-          <input
-            type="text"
-            onChange={(event) => setPhoneNumber(event.target.value)}
-          />
-        </label>
-        <label>
-          CAC Expiration:{" "}
-          <input
-            type="text"
-            onChange={(event) => setCacExp(event.target.value)}
-          />
-        </label>
-        <label>
-          Passport Number:{" "}
-          <input
-            type="text"
-            onChange={(event) => setPassNumber(event.target.value)}
-          />
-        </label>
-        <label>
-          Passport Expiration:{" "}
-          <input
-            type="text"
-            onChange={(event) => setPassExp(event.target.value)}
-          />
-        </label>
-        <label>
-          Visa Country:{" "}
-          <input
-            type="text"
-            onChange={(event) => setVisaCountry(event.target.value)}
-          />
-        </label>
-        <label>
-          visa Id:{" "}
-          <input
-            type="text"
-            onChange={(event) => setVisaId(event.target.value)}
-          />
-        </label>
-        <label>
-          Visa Expiration:{" "}
-          <input
-            type="text"
-            onChange={(event) => setVisaExp(event.target.value)}
-          />
-        </label>
-        <label>
-          Cbt List Id:{" "}
-          <input
-            type="int"
-            onChange={(event) => setCbtListId(event.target.value)}
-          />
-        </label>
-        <label>
-          Medical Requested:{" "}
-          <input
-            type="text"
-            onChange={(event) => setMedReq(event.target.value)}
-          />
-        </label>
-        <label>
-          Medical Scheduled:{" "}
-          <input
-            type="text"
-            onChange={(event) => setMedSched(event.target.value)}
-          />
-        </label>
-        <label>
-          Medical Expiration:{" "}
-          <input
-            type="text"
-            onChange={(event) => setMedExp(event.target.value)}
-          />
-        </label>
-        <label>
-          Dental Scheduled:{" "}
-          <input
-            type="text"
-            onChange={(event) => setDentSched(event.target.value)}
-          />
-        </label>
-        <label>
-          Dental Expiration:{" "}
-          <input
-            type="text"
-            onChange={(event) => setDentExp(event.target.value)}
-          />
-        </label>
-        <label>
-          Loa Expiration:{" "}
-          <input
-            type="text"
-            onChange={(event) => setLoaEnd(event.target.value)}
-          />
-        </label>
-        <button>Update Deployer!</button>
-      </form>
+      <button className="btn bg-success text-white m-1" onClick={handleShow}>
+            Update Deployer Information
+        </button>
+        <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+                <Modal.Title>Update Deployer Information</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+            <form className="form" onSubmit={handleSubmit}>
+              <label>
+                Deployment ID:{" "}
+                <input
+                  type="text"
+                  onChange={(event) => setDeploymentId(event.target.value)}
+                  />
+              </label>
+              <label>
+                First name:{" "}
+                <input
+                  type="text"
+                  onChange={(event) => setFirstName(event.target.value)}
+                  />
+              </label>
+              <label>
+                Last Name:{" "}
+                <input
+                  type="text"
+                  onChange={(event) => setLastName(event.target.value)}
+                  />
+              </label>
+              <label>
+                Email:{" "}
+                <input
+                  type="text"
+                  onChange={(event) => setEmail(event.target.value)}
+                  />
+              </label>
+              <label>
+                Address:{" "}
+                <input
+                  type="text"
+                  onChange={(event) => setAddress(event.target.value)}
+                  />
+              </label>
+              <label>
+                Phone Number:{" "}
+                <input
+                  type="text"
+                  onChange={(event) => setPhoneNumber(event.target.value)}
+                  />
+              </label>
+              <label>
+                CAC Expiration:{" "}
+                <input
+                  type="text"
+                  onChange={(event) => setCacExp(event.target.value)}
+                />
+              </label>
+              <label>
+                Passport Number:{" "}
+                <input
+                  type="text"
+                  onChange={(event) => setPassNumber(event.target.value)}
+                  />
+              </label>
+              <label>
+                Passport Expiration:{" "}
+                <input
+                  type="text"
+                  onChange={(event) => setPassExp(event.target.value)}
+                  />
+              </label>
+              <label>
+                Visa Country:{" "}
+                <input
+                  type="text"
+                  onChange={(event) => setVisaCountry(event.target.value)}
+                  />
+              </label>
+              <label>
+                visa Id:{" "}
+                <input
+                  type="text"
+                  onChange={(event) => setVisaId(event.target.value)}
+                  />
+              </label>
+              <label>
+                Visa Expiration:{" "}
+                <input
+                  type="text"
+                  onChange={(event) => setVisaExp(event.target.value)}
+                  />
+              </label>
+              <label>
+                Cbt List Id:{" "}
+                <input
+                  type="int"
+                  onChange={(event) => setCbtListId(event.target.value)}
+                  />
+              </label>
+              <label>
+                Medical Requested:{" "}
+                <input
+                  type="text"
+                  onChange={(event) => setMedReq(event.target.value)}
+                  />
+              </label>
+              <label>
+                Medical Scheduled:{" "}
+                <input
+                  type="text"
+                  onChange={(event) => setMedSched(event.target.value)}
+                  />
+              </label>
+              <label>
+                Medical Expiration:{" "}
+                <input
+                  type="text"
+                  onChange={(event) => setMedExp(event.target.value)}
+                  />
+              </label>
+              <label>
+                Dental Scheduled:{" "}
+                <input
+                  type="text"
+                  onChange={(event) => setDentSched(event.target.value)}
+                  />
+              </label>
+              <label>
+                Dental Expiration:{" "}
+                <input
+                  type="text"
+                  onChange={(event) => setDentExp(event.target.value)}
+                  />
+              </label>
+              <label>
+                Loa Expiration:{" "}
+                <input
+                  type="text"
+                  onChange={(event) => setLoaEnd(event.target.value)}
+                  />
+              </label>
+              <button onClick={handleClose}>Update Deployer!</button>
+            </form>
+            </Modal.Body>
+          </Modal>
     </div>
      );
 }

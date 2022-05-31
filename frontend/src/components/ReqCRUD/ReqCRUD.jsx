@@ -8,8 +8,8 @@ const ReqCRUD = (props) => {
     
 
   return (
-    <div className="container">
-        <ReqCreate />
+    <div className="d-flex flex-row justify-content-center">
+        <ReqCreate/>
         <ReqUpdate/>
         <ReqDelete/>
     </div>

@@ -15,7 +15,9 @@ const HomePage = () => {
   return (
     <div className="container">
       <h1>Admin Page for {user.username}!</h1>
+      <div>
       <Link to="/dpc/register">Click to register a DPC!</Link>
+      </div>
       <Link to="/dep/register">Click to register a deployer!</Link>
     </div>
   );

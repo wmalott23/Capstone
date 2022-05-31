@@ -8,7 +8,7 @@ const StepsCRUD = (props) => {
     
 
   return (
-    <div className="container">
+    <div className="d-flex flex-row justify-content-center">
         <StepCreate />
         <StepUpdate/>
         <StepDelete/>

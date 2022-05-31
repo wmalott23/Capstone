@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Card, CardGroup, ListGroup } from 'react-bootstrap';
 
 const ReqBreakOut = ({steps}) => {
     const [reqsList, setReqsList] = useState([])
@@ -82,25 +83,25 @@ const ReqBreakOut = ({steps}) => {
                 let distinctReqsByListDivs = distinctReqsByList.map((el) => {return(<div>{el}</div>)})
                 let reqsByListSpread = [...distinctReqsByListDivs]
                 let stepsByListMap = stepsByList[index].map((el) => {
-                    return (<div>
+                    return (<ListGroup.Item>
                                 <p>{`Step Id: ${el.id}`}</p> 
                                 <p>{`Step Title: ${el.name}`}</p>
                                 <p>{`Part of Requirement: ${el.requirement.name}`}</p>
-                            </div>)})
+                            </ListGroup.Item>)})
                 let stepsByListSpread =[...stepsByListMap]
                 return (
-                    <div key={index}>
-                        <div>
-                        <p>{`Requirement List ID: ${el.id}
-                            Requirement List Title: ${el.name}\n`}</p>
-                        </div>
-                        <div>
-                            {reqsByListSpread}
-                        </div>
-                        <div>
-                            {stepsByListSpread}
-                        </div>
-                    </div>
+                    <CardGroup>
+                        <Card bg="primary" text="white" className="mb-4" style={{ width: '18rem' }} key={index}>
+                            <Card.Title>
+                                <p>{`Requirement List ID: ${el.id}
+                                    Requirement List Title: ${el.name}\n`}</p>
+                            </Card.Title>
+                            <Card.Text>
+                                {reqsByListSpread}
+                            </Card.Text>
+                                {stepsByListSpread}
+                        </Card>
+                    </CardGroup>
                 )
             })}
         </div>

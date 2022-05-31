@@ -6,7 +6,7 @@ const DepList = ({data}) => {
 
     return ( 
         data.map((el, index) => {
-            let url = `dpc/dep/${el.id}`
+            let url = `dep/${el.id}`
             return (
                 <div key={index}>
                 <Link to={url}>

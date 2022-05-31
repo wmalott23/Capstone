@@ -8,7 +8,7 @@ const ReqListCRUD = (props) => {
     
 
   return (
-    <div className="container">
+    <div className="d-flex flex-row justify-content-center">
         <ReqListCreate />
         <ReqListUpdate/>
         <ReqListDelete/>

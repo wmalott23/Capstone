@@ -133,7 +133,8 @@ const DpcHomePage = () => {
       //assigns startdate, enddate, and title into a list of objects (one for each step)
       for(let i=0; i<startDates.length; i++){
         stepObjects.push({startDate: startDates[i], endDate: endDates[i], title: stepTitles[i]})
-      }}
+      }
+    }
     //returns list of objects
     console.log(stepObjects)
     setStepDates(stepObjects)
