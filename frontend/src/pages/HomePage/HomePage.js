@@ -15,10 +15,6 @@ const HomePage = () => {
   return (!user.isDeployer ? 
     <div className="container">
       <h1>Admin Page for {user.username}!</h1>
-      <Link to="/dpc/register" className="text-white" style={{ textDecoration: 'none' }}>
-      <button className="btn bg-primary p-1 text-white m-1">
-        Click to register a DPC!
-      </button></Link>
       <Link to="/dpc/" className="text-white" style={{ textDecoration: 'none' }}>
       <button className="btn bg-primary p-1 text-white m-1">
         View all Locations
