@@ -79,28 +79,31 @@ const DpcHomePage = () => {
   //takes the list of deployments, gets steps in a given deployment and spits out steps in a format acceptable to the overviewTable and taskCalendar
   const createStepsByDeployment = async () => {
     console.log(steps)
+    console.log(deployments)
     let stepObjects = []
+    // For Every Deployment
     for(let j=0; j<deployments.length; j++){
       let depSteps = []
       let startDates = []
       let startDates2 = []
       let endDates = []
-      let depId = deployments[j].id
+      let depReqListId = deployments[j].requirement_list.id
       let lastName
       // gets all steps for this deployment
       for(let i=0; i<steps.length; i++){
-        if(steps[i].requirement.requirement_list.deployment.id === depId){
+        if(steps[i].requirement && steps[i].requirement.requirement_list.id === depReqListId){
           depSteps.push(steps[i])
         }}
       //sets lastName for this deployment
       for(let i=0; i<deployers.length; i++){
-        if(deployers[i].deployment.id === depId){
-          console.table(deployers[i].deployment.id, depId)
+        if(deployers[i].deployment.id === depReqListId){
+          console.log(deployers)
+          console.table(deployers[i].deployment.id, depReqListId)
           lastName = deployers[i].last_name
         }}
       //sets start date of deployment
       console.log(depSteps)
-      let startDate = depSteps[0].requirement.requirement_list.deployment.start_date
+      let startDate = deployments[j].start_date
       //organizes based on step priority, priority number 1 last in line so that it gets assigned a start date last and is put in the front of the dates
       let adjSteps = []
       for(let i=depSteps.length; i>0; i--){
@@ -150,16 +153,28 @@ const DpcHomePage = () => {
       <OverviewTable dates={stepDates}/>
       <TaskCalendar dates={stepDates} className="m-4 border border-primary"/>
       <Table className="m-4 border border-primary rounded" style={{ width: '8rem' }}>
-        <tr>
-          Location List
-        </tr>
-        <LocList data={locations}/>
+        <thead>
+          <tr>
+            <th>
+              Location List
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <LocList data={locations}/>
+        </tbody>
       </Table>
       <Table className="mb-4 border border-primary" style={{ width: '8rem' }}>
-        <tr>
-          Deployer List
-        </tr>
-        <DepList data={deployers}/>
+        <thead>
+          <tr>
+            <th>
+              Deployer List
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <DepList data={deployers}/>
+        </tbody>
       </Table>
       <LocCRUD/>
       <Link to="/dpc/req/" className="text-white" style={{ textDecoration: 'none' }}>

@@ -9,9 +9,11 @@ const DepList = ({data}) => {
             let url = `dep/${el.id}`
             return (
                 <tr key={index}>
-                <Link to={url}>
-                    {el.last_name}
-                </Link>
+                    <th>
+                        <Link to={url}>
+                            {el.last_name}
+                        </Link>
+                    </th>
                 </tr>
             )
         })

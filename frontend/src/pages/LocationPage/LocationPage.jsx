@@ -92,27 +92,31 @@ const LocationPage = () => {
       }
       let deps = depList
       //for every deployment in deployments
+      console.log(deps)
       for(let j=0; j<deps.length; j++){
         let startDates = []
         let startDates2 = []
         let endDates = []
         let depId = deps[j].id
+        let depListId = deps[j].requirement_list.id
         let lastName
         // gets all steps for this deployment
         for(let i=0; i<steps.length; i++){
-          let stepDepId = steps[i].requirement.requirement_list.deployment.id
-          if(stepDepId === depId){
+          let stepListId = steps[i].requirement.requirement_list.id
+          if(stepListId && stepListId === depListId){
             depSteps.push(steps[i])
           }}
           console.log(steps)
         //sets lastName for this deployment
+        console.log(deployers)
         for(let i=0; i<deployers.length; i++){
+          console.table(deployers[i].deployment.id, depId)
           if(deployers[i].deployment.id === depId){
             lastName = deployers[i].last_name
           }}
           console.log(steps)
         //sets start date of deployment
-        let startDate = depSteps[0].requirement.requirement_list.deployment.start_date
+        let startDate = deps[j].start_date
         //organizes based on step priority, priority number 1 last in line so that it gets assigned a start date last and is put in the front of the dates
         let adjSteps = []
         for(let i=depSteps.length; i>0; i--){

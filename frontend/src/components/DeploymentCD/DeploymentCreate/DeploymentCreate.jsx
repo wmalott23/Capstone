@@ -7,6 +7,7 @@ const DeploymentCreate = ({locationId}) => {
     const [name, setName] = useState('');
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
+    const [reqListId, setReqListId] = useState('');
 
     function handleSubmit(event) {
         event.preventDefault()
@@ -14,6 +15,7 @@ const DeploymentCreate = ({locationId}) => {
             name: name,
             start_date: startDate,
             end_date: endDate,
+            requirement_list_id: reqListId,
             location_id: locationId
         };
         postDeployment(reqList);
@@ -51,6 +53,9 @@ const DeploymentCreate = ({locationId}) => {
                     </div>
                     <div className="d-flex flex-column align-content-end p-1">
                         <textarea className="form-control form-control" type='text' placeholder="End Date: (YYYY-MM-DD)" onChange={(event) => setEndDate(event.target.value)}></textarea>
+                    </div>
+                    <div className="d-flex flex-column align-content-end p-1">
+                        <textarea className="form-control form-control" type='text' placeholder="Requirement List Id" onChange={(event) => setReqListId(event.target.value)}></textarea>
                     </div>
                     <button className="btn bg-success col-md-5 align-self-center text-white" onClick={handleClose}>Submit</button>
                 </form>

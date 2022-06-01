@@ -10,9 +10,11 @@ const LocList = ({data}) => {
             let url = `loc/${loc.id}`
             return(
                 <tr key={index}>
-                    <Link to={url}>
-                        {loc.name}
-                    </Link>
+                    <th>
+                        <Link to={url}>
+                            {loc.name}
+                        </Link>
+                    </th>
                 </tr>
         )})
      );
