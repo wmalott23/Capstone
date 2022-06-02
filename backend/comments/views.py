@@ -4,22 +4,22 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework import status
 
-from .serializer import Comment, CommentSerializer
-from .models import Comment
+from .serializer import Comm, CommSerializer
+from .models import Comm
 
 # Create your views here.
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def comments_list(request, id):
-    comments = Comment.objects.filter(step_id=id)
-    serializer = CommentSerializer(comments, many=True)
+    comments = Comm.objects.filter(step_id=id)
+    serializer = CommSerializer(comments, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def comments_post(request):
-    serializer = CommentSerializer(data=request.data)
+    serializer = CommSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save(user=request.user)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -29,8 +29,8 @@ def comments_post(request):
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
 def comments_update(request, pk):
-    comment = get_object_or_404(Comment, pk=pk)
-    serializer = CommentSerializer(comment, data=request.data)
+    comment = get_object_or_404(Comm, pk=pk)
+    serializer = CommSerializer(comment, data=request.data)
     if serializer.is_valid():
         serializer.save(user=request.user)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
