@@ -12,7 +12,7 @@ from .models import DepNotes
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def comments_list(request, id):
-    comments = DepNotes.objects.filter(step__step_id=id)
+    comments = DepNotes.objects.filter(step_id=id)
     serializer = DepNotesSerializer(comments, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
