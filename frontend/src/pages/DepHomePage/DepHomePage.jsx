@@ -7,6 +7,7 @@ import TaskCalendar from "../../components/TaskCalendar/TaskCalendar";
 import PIDisplay from "../../components/PIDisplay/PIDisplay";
 import OverviewTable from "../../components/OverviewTable/OverviewTable";
 import axios from "axios";
+import DepNotesList from "../../components/DepNotes/DepNotesList";
 
 const DepHomePage = () => {
   const [user, token] = useAuth();
@@ -25,7 +26,7 @@ const DepHomePage = () => {
     fetchSteps()
   }, [depPi]);
 
-  useEffect(async () => {
+  useEffect(() => {
     let mounted=true
     createStepTimeline().then(() => {
       if(mounted) {
@@ -68,7 +69,6 @@ const DepHomePage = () => {
     let startDates = []
     let startDates2 = []
     let endDates = []
-    console.log(depPi)
     let startDate = deployment.start_date
     //organizes based on step priority, priority number 1 last in line so that it gets assigned a start date last and is put in the front of the dates
     let adjSteps = []
@@ -78,7 +78,6 @@ const DepHomePage = () => {
           adjSteps.push(steps[l])
         }
     }}
-    console.log(steps)
     //calculates start dates (from last step) based on length, counting backwards from the deployment start date
     var n = Date.parse(startDate)
     var d = new Date(n)
@@ -108,16 +107,23 @@ const DepHomePage = () => {
       stepObjects.push({startDate: startDates[i], endDate: endDates[i], title: stepTitles[i]})
     }
     //returns list of objects
-    console.log(stepObjects)
     setStepDates(stepObjects)
   }
 
 
   return (loading ? <p>Screen is Loading / Your Deployer may not have any steps assigned to them.</p> : 
     <div className="container">
+      <h1>{user.username}</h1>
       <OverviewTable dates={stepDates}/>
       <TaskCalendar dates={stepDates}/>
-      <PIDisplay data={depPi}/>
+      <div className="d-flex flex-row">
+        <div className="d-flex flex-column col-md-5">
+          <DepNotesList steps={steps}/>
+        </div>
+        <div className="d-flex flex-column col-md-5">
+          <PIDisplay data={depPi}/>
+        </div>
+      </div>
     </div>
   );
 };
