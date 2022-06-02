@@ -5,6 +5,7 @@ import DeployerUpdate from '../../components/DeployerUpdate/DeployerUpdate';
 import OverviewTable from '../../components/OverviewTable/OverviewTable';
 import TaskCalendar from '../../components/TaskCalendar/TaskCalendar';
 import { Link } from 'react-router-dom';
+import DepNotesList from '../../components/DepNotes/DepNotesList';
 
 const DpcDepPage = () => {
 
@@ -118,6 +119,7 @@ const DpcDepPage = () => {
       <h2>{`${depPi.first_name} ${depPi.last_name} Overview`}</h2>
       <OverviewTable dates={stepDates}/>
       <TaskCalendar dates={stepDates}/>
+      <DepNotesList steps={steps}/>
       <DeployerUpdate/>
       <Link to="/dpc/" className="text-white" style={{ textDecoration: 'none' }}>
       <button className="btn bg-primary p-1 text-white m-1">Return to DPC Overview</button>
