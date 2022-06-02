@@ -20,7 +20,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/auth/', include('authentication.urls')),
     path('api/cbts/', include('cbts.urls')),
-    path('api/comments/', include('comments.urls')),
+    path('api/notes/', include('dep_notes.urls')),
     path('api/deployers/', include('deployers.urls')),
     path('api/deployment_programs/', include('deployment_programs.urls')),
     path('api/deployments/', include('deployments.urls')),

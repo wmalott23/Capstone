@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'locations',
     'requirements',
     'deployers',
+    'dep_notes',
     'comments',
     'cbts',
 ]
