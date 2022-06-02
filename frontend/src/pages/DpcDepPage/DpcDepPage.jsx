@@ -13,6 +13,7 @@ const DpcDepPage = () => {
     const {deployerId} = useParams();
     const [loading, setLoading] = useState(true);
     const [depPi, setDepPi] = useState({});
+    const [deployment, setDeployment] = useState({});
     const [steps, setSteps] = useState([]);
     const [stepDates, setStepDates] = useState([]);
 
@@ -21,6 +22,7 @@ const DpcDepPage = () => {
     }, [])
 
     useEffect(() => {
+      fetchDeployment()
       fetchSteps()
     }, [depPi])
 
@@ -45,6 +47,15 @@ const DpcDepPage = () => {
       }
     }
 
+    const fetchDeployment = async () => {
+      try {
+        let response = await axios.get(`http://127.0.0.1:8000/api/deployments/${depPi.deployment.id}/`)
+        setDeployment(response.data)
+      } catch (error) {
+        console.log(error.message)
+      }
+    }
+
     const fetchSteps = async () => {
       try {
         console.log(depPi)
@@ -60,7 +71,7 @@ const DpcDepPage = () => {
     let startDates = []
     let startDates2 = []
     let endDates = []
-    let startDate = steps[0].requirement.requirement_list.deployment.start_date
+    let startDate = deployment.start_date
     //organizes based on step priority, priority number 1 last in line so that it gets assigned a start date last and is put in the front of the dates
     let adjSteps = []
     for(let i=steps.length; i>0; i--){

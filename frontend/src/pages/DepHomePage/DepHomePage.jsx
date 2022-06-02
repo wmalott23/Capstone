@@ -11,6 +11,7 @@ import axios from "axios";
 const DepHomePage = () => {
   const [user, token] = useAuth();
   const [depPi, setDepPi] = useState({})
+  const [deployment, setDeployment] = useState({})
   const [steps, setSteps] = useState([])
   const [stepDates, setStepDates] = useState([])
   const [loading, setLoading] = useState(true)
@@ -20,6 +21,7 @@ const DepHomePage = () => {
   }, []);
 
   useEffect(() => {
+    fetchDeployment()
     fetchSteps()
   }, [depPi]);
 
@@ -43,6 +45,15 @@ const DepHomePage = () => {
     }
   }
 
+  const fetchDeployment = async () => {
+    try {
+      let response = await axios.get(`http://127.0.0.1:8000/api/deployments/${depPi.deployment.id}/`)
+      setDeployment(response.data)
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+
   //gets step information for deploying based on the deployment.
   const fetchSteps = async () => {
     try {
@@ -58,7 +69,7 @@ const DepHomePage = () => {
     let startDates2 = []
     let endDates = []
     console.log(depPi)
-    let startDate = depPi.deployment.start_date
+    let startDate = deployment.start_date
     //organizes based on step priority, priority number 1 last in line so that it gets assigned a start date last and is put in the front of the dates
     let adjSteps = []
     for(let i=steps.length; i>0; i--){
