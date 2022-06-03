@@ -72,7 +72,7 @@ const DepHomePage = () => {
     let startDate = deployment.start_date
     //organizes based on step priority, priority number 1 last in line so that it gets assigned a start date last and is put in the front of the dates
     let prioSteps = []
-    for(let i=steps.length; i>0; i--){
+    for(let i=5; i>0; i--){
       for(let l=0; l<steps.length; l++){
         if(steps[l].priority === i){
           prioSteps.push(steps[l])
@@ -81,8 +81,10 @@ const DepHomePage = () => {
     //filters adjSteps based on their dependency
     const adjSteps = prioSteps.filter(el => {
       let dependency = el.requirement.dependency
-      console.log(!!depPi[dependency]) 
-      return (!depPi[dependency] || depPi[dependency] < deployment.end_date)
+      if(typeof depPi[dependency] === "undefined") {
+        return el
+      }
+      else return (!depPi[dependency] || depPi[dependency] < deployment.end_date)
     })
     //calculates start dates (from last step) based on length, counting backwards from the deployment start date
     var n = Date.parse(startDate)
