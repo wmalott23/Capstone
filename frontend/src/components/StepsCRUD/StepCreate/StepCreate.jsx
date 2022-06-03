@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import useAuth from '../../../hooks/useAuth';
 import axios from 'axios';
-import { Modal } from 'react-bootstrap';
+import { Form, Modal } from 'react-bootstrap';
 
 const StepCreate = (props) => {
 
@@ -55,7 +55,8 @@ const StepCreate = (props) => {
                         <textarea className="form-control form-control" type='text' placeholder="Name:" onChange={(event) => setName(event.target.value)}></textarea>
                     </div>
                     <div className="d-flex flex-column align-content-end p-1">
-                        <textarea className="form-control form-control" type='text' placeholder="Priority: (Lower numbers are higher priority)" onChange={(event) => setPriority(event.target.value)}></textarea>
+                        
+                        <input type="range" className="form-range" min="1" max="5" step="1"/>
                     </div>
                     <div className="d-flex flex-column align-content-end p-1">
                         <textarea className="form-control form-control" type='text' placeholder="Description:" onChange={(event) => setDescription(event.target.value)}></textarea>

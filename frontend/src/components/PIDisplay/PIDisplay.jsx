@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import {Form, InputGroup, FormControl} from 'react-bootstrap';
+import {Form, InputGroup, FormControl, Button} from 'react-bootstrap';
 import axios from 'axios';
 
 
 const PIDisplay = (props) => {
 
     const data = props.data
-    const [id, setId] = useState(0);
     const [depId, setDepId] = useState(data.deployment.id);
     const [firstName, setFirstName] = useState(data.first_name);
     const [lastName, setLastName] = useState(data.last_name);
@@ -29,7 +28,6 @@ const PIDisplay = (props) => {
     function handleSubmit(event) {
         event.preventDefault()
         let reqList = {
-            id: id,
             deployment_id: depId,
             first_name: firstName,
             last_name: lastName,
@@ -53,7 +51,7 @@ const PIDisplay = (props) => {
     }
 
     async function putDeployer(reqList){
-        let response = await axios.put(`http://127.0.0.1:8000/api/deployers/${id}`, reqList);
+        let response = await axios.put(`http://127.0.0.1:8000/api/deployers/${data.id}/`, reqList);
         if(response.status === 201){
             window.location.reload(false);
         }
@@ -69,39 +67,39 @@ const PIDisplay = (props) => {
                 </InputGroup>
                 <Form.Group className="bg-primary text-white" >
                     <Form.Label>Email</Form.Label>
-                    <Form.Control type="password" placeholder={data.email} onChange={(event) => setEmail(event.target.value)}/>
+                    <Form.Control placeholder={data.email} onChange={(event) => setEmail(event.target.value)}/>
                 </Form.Group>
                 <Form.Group className="bg-primary text-white" >
                     <Form.Label>Address</Form.Label>
-                    <Form.Control type="password" placeholder={data.address} onChange={(event) => setAddress(event.target.value)}/>
+                    <Form.Control placeholder={data.address} onChange={(event) => setAddress(event.target.value)}/>
                 </Form.Group>
                 <Form.Group className="bg-primary text-white" >
                     <Form.Label>Phone Number</Form.Label>
-                    <Form.Control type="password" placeholder={data.phone_number} onChange={(event) => setPhoneNumber(event.target.value)}/>
+                    <Form.Control placeholder={data.phone_number} onChange={(event) => setPhoneNumber(event.target.value)}/>
                 </Form.Group>
                 <Form.Group className="  p-1 bg-primary text-white" >
                     <Form.Label>CAC Expiration (YYYY-MM-DD)</Form.Label>
-                    <Form.Control type="password" placeholder={data.cac_exp} onChange={(event) => setCacExp(event.target.value)}/>
+                    <Form.Control placeholder={data.cac_exp} onChange={(event) => setCacExp(event.target.value)}/>
                 </Form.Group>
                 <Form.Group className="  p-1 bg-primary text-white" >
                     <Form.Label>Passport Number</Form.Label>
-                    <Form.Control type="password" placeholder={data.pass_num} onChange={(event) => setPassNum(event.target.value)}/>
+                    <Form.Control placeholder={data.pass_num} onChange={(event) => setPassNum(event.target.value)}/>
                 </Form.Group>
                 <Form.Group className="  p-1 bg-primary text-white" >
                     <Form.Label>Passport Expiration  (YYYY-MM-DD)</Form.Label>
-                    <Form.Control type="password" placeholder={data.pass_exp} onChange={(event) => setPassExp(event.target.value)}/>
+                    <Form.Control placeholder={data.pass_exp} onChange={(event) => setPassExp(event.target.value)}/>
                 </Form.Group>
                 <Form.Group className="  p-1 bg-primary text-white" >
                     <Form.Label>Visa Country of Origin</Form.Label>
-                    <Form.Control type="password" placeholder={data.visa_name} onChange={(event) => setVisaName(event.target.value)}/>
+                    <Form.Control placeholder={data.visa_name} onChange={(event) => setVisaName(event.target.value)}/>
                 </Form.Group>
                 <Form.Group className="  p-1 bg-primary text-white" >
                     <Form.Label>Visa Number</Form.Label>
-                    <Form.Control type="password" placeholder={data.visa_id} onChange={(event) => setVisaNum(event.target.value)}/>
+                    <Form.Control placeholder={data.visa_id} onChange={(event) => setVisaNum(event.target.value)}/>
                 </Form.Group>
                 <Form.Group className="  p-1 bg-primary text-white" >
                     <Form.Label>Visa Expiration  (YYYY-MM-DD)</Form.Label>
-                    <Form.Control type="password" placeholder={data.visa_exp} onChange={(event) => setVisaExp(event.target.value)}/>
+                    <Form.Control placeholder={data.visa_exp} onChange={(event) => setVisaExp(event.target.value)}/>
                 </Form.Group>
                 <Form.Group className="  p-1 bg-primary text-white" >
                     <Form.Label>CBTs   </Form.Label>
@@ -109,28 +107,30 @@ const PIDisplay = (props) => {
                 </Form.Group>
                 <Form.Group className="  p-1 bg-primary text-white" >
                     <Form.Label>Medical Requested On (YYYY-MM-DD)</Form.Label>
-                    <Form.Control type="password" placeholder={data.med_requested} onChange={(event) => setMedReq(event.target.value)}/>
+                    <Form.Control  placeholder={data.med_requested} onChange={(event) => setMedReq(event.target.value)}/>
                 </Form.Group>
                 <Form.Group className="  p-1 bg-primary text-white" >
                     <Form.Label>Medical Scheduled for  (YYYY-MM-DD)</Form.Label>
-                    <Form.Control type="password" placeholder={data.med_scheduled} onChange={(event) => setMedSched(event.target.value)}/>
+                    <Form.Control  placeholder={data.med_scheduled} onChange={(event) => setMedSched(event.target.value)}/>
                 </Form.Group>
                 <Form.Group className="  p-1 bg-primary text-white" >
                     <Form.Label>Medical Expires on  (YYYY-MM-DD)</Form.Label>
-                    <Form.Control type="password" placeholder={data.med_exp} onChange={(event) => setMedExp(event.target.value)}/>
+                    <Form.Control  placeholder={data.med_exp} onChange={(event) => setMedExp(event.target.value)}/>
                 </Form.Group>
                 <Form.Group className="  p-1 bg-primary text-white" >
                     <Form.Label>Dental Scheduled for  (YYYY-MM-DD)</Form.Label>
-                    <Form.Control type="password" placeholder={data.dent_scheduled} onChange={(event) => setDentSched(event.target.value)}/>
+                    <Form.Control  placeholder={data.dent_scheduled} onChange={(event) => setDentSched(event.target.value)}/>
                 </Form.Group>
                 <Form.Group className="  p-1 bg-primary text-white" >
                     <Form.Label>Dental Expires on  (YYYY-MM-DD)</Form.Label>
-                    <Form.Control type="password" placeholder={data.dent_exp} onChange={(event) => setDentExp(event.target.value)}/>
+                    <Form.Control  placeholder={data.dent_exp} onChange={(event) => setDentExp(event.target.value)}/>
                 </Form.Group>
                 <Form.Group className="  p-1 bg-primary text-white">
                     <Form.Label>LOA Expires on (YYYY-MM-DD)</Form.Label>
-                    <Form.Control type="password" placeholder={data.loa_exp} onChange={(event) => setLoaExp(event.target.value)}/>
+                    <Form.Control  placeholder={data.loa_exp} onChange={(event) => setLoaExp(event.target.value)}/>
                 </Form.Group>
+                <Button className="btn bg-primary col-md-5 align-self-center text-white border-white" type="submit" onclick={handleSubmit}>Submit</Button>
+
         </Form>
      );
     }

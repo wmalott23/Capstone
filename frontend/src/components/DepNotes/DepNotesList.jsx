@@ -8,7 +8,7 @@ const DepNotesList = ({steps}) => {
     
 
     return ( 
-        <Table className="mb-4 border border-primary border-3" striped bordered hover size="lg" style={{ width: '8rem' }}>
+        <Table className="mb-4 border border-primary border-3" striped bordered hover size="xl">
         <thead>
           <tr>
             <th>Step Name</th>

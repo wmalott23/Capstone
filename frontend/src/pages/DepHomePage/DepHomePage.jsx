@@ -116,11 +116,11 @@ const DepHomePage = () => {
       <h1>{user.username}</h1>
       <OverviewTable dates={stepDates}/>
       <TaskCalendar dates={stepDates}/>
-      <div className="d-flex flex-row">
-        <div className="d-flex flex-column col-md-5">
+      <div className="d-flex flex-row ">
+        <div className="d-flex flex-column m-1 col-md-6">
           <DepNotesList steps={steps}/>
         </div>
-        <div className="d-flex flex-column col-md-5">
+        <div className="d-flex flex-column m-1 col-md-6">
           <PIDisplay data={depPi}/>
         </div>
       </div>

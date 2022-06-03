@@ -30,7 +30,7 @@ const TaskCalendar = ({dates}) => {
 
     return ( 
     <div className="m-4 border border-primary rounded">
-      <h3>Task schedule</h3>
+      <h3>Today's schedule</h3>
       <Paper className="m-4 border border-primary rounded">
           <Scheduler
             data={schedulerData}
