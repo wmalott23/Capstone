@@ -7,7 +7,7 @@ const StepCreate = (props) => {
 
     const [name, setName] = useState('');
     const [requirementId, setRequirementId] = useState(0);
-    const [priority, setPriority] = useState(0);
+    const [priority, setPriority] = useState(5);
     const [description, setDescription] = useState('');
     const [len, setLen] = useState(0);
     const [user, token] = useAuth();
@@ -50,13 +50,19 @@ const StepCreate = (props) => {
                 <Modal.Title>Create Step</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <form className="modal-body p-1 d-flex flex-column align-content-end rounded" onSubmit={handleSubmit}>
+                <form className="modal-body p-2 d-flex flex-column align-content-end rounded" onSubmit={handleSubmit}>
                     <div className="d-flex flex-column align-content-end p-1">
                         <textarea className="form-control form-control" type='text' placeholder="Name:" onChange={(event) => setName(event.target.value)}></textarea>
                     </div>
-                    <div className="d-flex flex-column align-content-end p-1">
-                        
-                        <input type="range" className="form-range" min="1" max="5" step="1"/>
+                    <div className="d-flex flex-column align-content-end col-md-12 p-1">
+                        <h5 className="align-self-center"> Priority</h5>
+                        <div className="d-flex flex-row col-md-12">
+                            <label className="position-absolute start-0">Highest</label>
+                            <label className="position-absolute end-0">Lowest</label>
+                        </div>
+                        <div className="mt-4">
+                            <input type="range" className="form-range" min="1" max="5" step="1" onChange={(event) => setPriority(event.target.value)}/>
+                        </div>
                     </div>
                     <div className="d-flex flex-column align-content-end p-1">
                         <textarea className="form-control form-control" type='text' placeholder="Description:" onChange={(event) => setDescription(event.target.value)}></textarea>

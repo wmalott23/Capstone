@@ -79,83 +79,83 @@ const LocationPage = () => {
       }
     }
 
-    //takes in a location, gets all deployments for that location, gets steps for the deployments and spits out steps in a format acceptable to the overviewTable and taskCalendar
-    const createStepsByLocation = async () => {
-      let stepObjects = []
-      //get a list of deployments in location, set deployments to that list
-      let depList = []
-      let depSteps = []
-      for(let i=0; i<allDeps.length; i++){
-        if(String(allDeps[i].location.id) === locationId){
-          depList.push(allDeps[i])
+//takes the location and deployments, gets steps in a given deployment and spits out steps in a format acceptable to the overviewTable and taskCalendar
+const createStepsByLocation = async () => {
+  for(let j=0; j<allDeps.length; j++){
+    let strDep = String(allDeps[j].location.id)
+    if(strDep === locationId)
+      deployments.push(allDeps[j])
+  }
+  let stepObjects = []
+  // For Every Deployment
+  for(let j=0; j<deployments.length; j++){
+    let depSteps = []
+    let startDates = []
+    let startDates2 = []
+    let endDates = []
+    let depReqListId = deployments[j].requirement_list.id
+    let lastName
+    let depPi
+    // gets all steps for this deployment
+    for(let i=0; i<steps.length; i++){
+      if(steps[i].requirement && steps[i].requirement.requirement_list.id === depReqListId){
+        depSteps.push(steps[i])
+      }}
+    //sets lastName for this deployment
+    for(let i=0; i<deployers.length; i++){
+      if(deployers[i].deployment.requirement_list === depReqListId){
+        lastName = deployers[i].last_name
+        depPi = deployers[i]
+      }}
+    //sets start date of deployment
+    let startDate = deployments[j].start_date
+    //organizes based on step priority, priority number 1 last in line so that it gets assigned a start date last and is put in the front of the dates
+    let prioSteps = []
+    for(let i=5; i>0; i--){
+      for(let l=0; l<depSteps.length; l++){
+        if(depSteps[l].priority === i){
+          prioSteps.push(depSteps[l])
         }
+    }}
+    //filters adjSteps based on their dependency
+    const adjSteps = prioSteps.filter(el => {
+      let dependency = el.requirement.dependency
+      if(typeof depPi[dependency] === "undefined") {
+        return el
       }
-      let deps = depList
-      //for every deployment in deployments
-      console.log(deps)
-      for(let j=0; j<deps.length; j++){
-        let startDates = []
-        let startDates2 = []
-        let endDates = []
-        let depId = deps[j].id
-        let depListId = deps[j].requirement_list.id
-        let lastName
-        // gets all steps for this deployment
-        for(let i=0; i<steps.length; i++){
-          let stepListId = steps[i].requirement.requirement_list.id
-          if(stepListId && stepListId === depListId){
-            depSteps.push(steps[i])
-          }}
-          console.log(steps)
-        //sets lastName for this deployment
-        console.log(deployers)
-        for(let i=0; i<deployers.length; i++){
-          console.table(deployers[i].deployment.id, depId)
-          if(deployers[i].deployment.id === depId){
-            lastName = deployers[i].last_name
-          }}
-          console.log(steps)
-        //sets start date of deployment
-        let startDate = deps[j].start_date
-        //organizes based on step priority, priority number 1 last in line so that it gets assigned a start date last and is put in the front of the dates
-        let adjSteps = []
-        for(let i=depSteps.length; i>0; i--){
-          for(let l=0; l<depSteps.length; l++){
-            if(depSteps[l].priority === i){
-              adjSteps.push(depSteps[l])
-            }
-        }}
-        //calculates start dates (from last step) based on length, counting backwards from the deployment start date
-        var n = Date.parse(startDate)
-        var d = new Date(n)
-        let e = new Date(d).toISOString()
-        for(let i=0; i<adjSteps.length; i++){
-          let adjLen = adjSteps[i].len
-          let startInMilli = d.setDate(d.getDate()-adjLen)
-          let start = new Date(startInMilli).toISOString()
-          let start2 = new Date(start)
-          startDates.push(start)
-          startDates2.push(start2)
-        }
-        //calculates end dates (from last step) (subtracting one from start date in last step to get end date in second to last step)
-        endDates.push(e)
-        for(let i=0; i<adjSteps.length-1; i++){
-          let endMinusOne = startDates2[i].setTime(startDates2[i].getTime()-1)
-          let newD = new Date(endMinusOne).toISOString()
-          endDates.push(newD)
-        }
-        //pulls titles from each step
-        let stepTitles = adjSteps.map(el => {
-          return `${lastName} ${el.requirement.name} ${el.name}`
-        })
-        //assigns startdate, enddate, and title into a list of objects (one for each step)
-        for(let i=0; i<startDates.length; i++){
-          stepObjects.push({startDate: startDates[i], endDate: endDates[i], title: stepTitles[i]})
-        }}
-      //returns list of objects
-      setStepDates(stepObjects)
-      setDeployments(deps)
+      else return (!depPi[dependency] || depPi[dependency] < deployments[j].end_date)
+    })
+    //calculates start dates (from last step) based on length, counting backwards from the deployment start date
+    var n = Date.parse(startDate)
+    var d = new Date(n)
+    let e = new Date(d).toISOString()
+    for(let i=0; i<adjSteps.length; i++){
+      let adjLen = adjSteps[i].len
+      let startInMilli = d.setDate(d.getDate()-adjLen)
+      let start = new Date(startInMilli).toISOString()
+      let start2 = new Date(start)
+      startDates.push(start)
+      startDates2.push(start2)
     }
+    //calculates end dates (from last step) (subtracting one from start date in last step to get end date in second to last step)
+    endDates.push(e)
+    for(let i=0; i<adjSteps.length-1; i++){
+      let endMinusOne = startDates2[i].setDate(startDates2[i].getDate()-1)
+      let newD = new Date(endMinusOne).toISOString()
+      endDates.push(newD)
+    }
+    //pulls titles from each step
+    let stepTitles = adjSteps.map(el => {
+      return `${lastName} ${el.requirement.name} ${el.name}`
+    })
+    //assigns startdate, enddate, and title into a list of objects (one for each step)
+    for(let i=0; i<startDates.length; i++){
+      stepObjects.push({startDate: startDates[i], endDate: endDates[i], title: stepTitles[i]})
+    }
+  }
+  //returns list of objects
+  setStepDates(stepObjects)
+}
 
     return ( loading ? <p>LOADING</p> :
     <div className="container">

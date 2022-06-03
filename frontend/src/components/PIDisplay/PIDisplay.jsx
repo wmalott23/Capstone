@@ -129,7 +129,7 @@ const PIDisplay = (props) => {
                     <Form.Label>LOA Expires on (YYYY-MM-DD)</Form.Label>
                     <Form.Control  placeholder={data.loa_exp} onChange={(event) => setLoaExp(event.target.value)}/>
                 </Form.Group>
-                <Button className="btn bg-primary col-md-5 align-self-center text-white border-white" type="submit" onclick={handleSubmit}>Submit</Button>
+                <Button className="btn bg-primary col-md-5 align-self-center text-white border-white" type="submit" onClick={handleSubmit}>Submit</Button>
 
         </Form>
      );

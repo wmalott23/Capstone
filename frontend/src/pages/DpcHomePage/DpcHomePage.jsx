@@ -78,8 +78,6 @@ const DpcHomePage = () => {
 
   //takes the list of deployments, gets steps in a given deployment and spits out steps in a format acceptable to the overviewTable and taskCalendar
   const createStepsByDeployment = async () => {
-    console.log(steps)
-    console.log(deployments)
     let stepObjects = []
     // For Every Deployment
     for(let j=0; j<deployments.length; j++){
@@ -89,6 +87,7 @@ const DpcHomePage = () => {
       let endDates = []
       let depReqListId = deployments[j].requirement_list.id
       let lastName
+      let depPi
       // gets all steps for this deployment
       for(let i=0; i<steps.length; i++){
         if(steps[i].requirement && steps[i].requirement.requirement_list.id === depReqListId){
@@ -96,22 +95,28 @@ const DpcHomePage = () => {
         }}
       //sets lastName for this deployment
       for(let i=0; i<deployers.length; i++){
-        if(deployers[i].deployment.id === depReqListId){
-          console.log(deployers)
-          console.table(deployers[i].deployment.id, depReqListId)
+        if(deployers[i].deployment.requirement_list === depReqListId){
           lastName = deployers[i].last_name
+          depPi = deployers[i]
         }}
       //sets start date of deployment
-      console.log(depSteps)
       let startDate = deployments[j].start_date
       //organizes based on step priority, priority number 1 last in line so that it gets assigned a start date last and is put in the front of the dates
-      let adjSteps = []
-      for(let i=depSteps.length; i>0; i--){
+      let prioSteps = []
+      for(let i=5; i>0; i--){
         for(let l=0; l<depSteps.length; l++){
           if(depSteps[l].priority === i){
-            adjSteps.push(depSteps[l])
+            prioSteps.push(depSteps[l])
           }
       }}
+      //filters adjSteps based on their dependency
+      const adjSteps = prioSteps.filter(el => {
+        let dependency = el.requirement.dependency
+        if(typeof depPi[dependency] === "undefined") {
+          return el
+        }
+        else return (!depPi[dependency] || depPi[dependency] < deployments[j].end_date)
+      })
       //calculates start dates (from last step) based on length, counting backwards from the deployment start date
       var n = Date.parse(startDate)
       var d = new Date(n)
@@ -141,7 +146,6 @@ const DpcHomePage = () => {
       }
     }
     //returns list of objects
-    console.log(stepObjects)
     setStepDates(stepObjects)
   }
 
