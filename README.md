@@ -21,17 +21,17 @@ deployment. -->
 
 <!-- (10 points): As a Deployment Coordinator, I want to be able to view a data 
 visualization timeline for each Deployer per deployment to accurately represent  -->
-the estimated amount of time it would take to be deployment ready based on that
+<!-- the estimated amount of time it would take to be deployment ready based on that
 Deployer’s current deployment status (Whether they have a visa, if they need 
-more training, etc)
+more training, etc) -->
 
 <!-- (5 points): As a Deployer, I want to see a dashboard that displays all of the tasks 
 that need to be completed for the current day so that I can see what I should 
 focus on in order to be deployment ready, in order of priority. -->
 
-(5 points): As a Deployer/Deployment Coordinator, I would like the ability to leave 
+<!-- (5 points): As a Deployer/Deployment Coordinator, I would like the ability to leave 
 notes next to each deployment requirement so that I can communicate updates 
-on a specific deployment item. 
+on a specific deployment item.  -->
 
 (5 points): As a Deployment Coordinator, I would like to pull a summary of 
 deployment readiness information (percentage of deployment tasks completed) 
